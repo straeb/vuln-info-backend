@@ -1,0 +1,28 @@
+## Chron jobs to match the CPEs from the components DB
+## via CVE with the CPEs provided by cve.circl.lu/api/cve/
+##
+## X_CRON_STRING
+## -> UNIX like time schedule: '* 3 * * *' = every day at 03:00AM
+##
+## x_DAYS_FROM
+## x_DAYS_FROM
+## -> x_DAYS_FROM: 0 x_DAYS_TO: -10, covers Notifications created
+## between now and 10 days ago
+##
+## There are 3 jobs:
+1_CRON_STRING: 0 2 * * *
+1_FROM_DAYS: 0
+1_TO_DAYS: -10
+
+2_CRON_STRING: 0 3 */2 * *
+2_FROM_DAYS: -11
+2_TO_DAYS: -14
+
+3_CRON_STRING: 0 4 7 * *
+3_FROM_DAYS: -15
+3_TO_DAYS: -60
+
+# RSS READER
+## Another Cron job, that refreshes the rss feed
+RSS_CRON_STRING: "5 * * * *"
+

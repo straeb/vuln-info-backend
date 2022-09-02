@@ -1,0 +1,9 @@
+.iml
+vuln-info-backend
+.env
+/.data
+/.dev
+/.idea
+!/docker-compose.yml
+!/cron-config.yml
+!/Dockerfile

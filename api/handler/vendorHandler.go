@@ -17,26 +17,42 @@ var vendor crud.VendorCRUD
 // @Security ApiKeyAuth
 // @param Authorization header string true "Authorization"
 // @produce json
-// @Param    search    query     string  false  "Search vendor by name."
 // @response 200 {array} models.Vendor "OK"
 // @failure 400 {object} ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
-//@Router /vendors [get]
+// @Router /vendors [get]
 func GetAllVendors(c *gin.Context) {
 	var input models.Vendor
-	searchQuery, present := c.GetQuery("search")
-	if present {
-
-		vendor, err := vendor.Search(searchQuery)
-		helper.AnswerGetAll(vendor, err, c)
-		return
-	}
 
 	err := c.ShouldBind(&input)
 	vendor, err := vendor.GetAll(&input)
 	helper.AnswerGetAll(vendor, err, c)
 
+}
+
+// SearchVendor godoc
+// @summary Search vendor
+// @description Search vendor by name.
+// @tags Vendors
+// @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
+// @produce json
+// @Param    q    query     string  true  "Search vendor by name."
+// @response 200 {array} models.Vendor "OK"
+// @failure 400 {object} ApiError "Bad Request"
+// @failure 401 {string} string "Unauthorized"
+// @failure 404 {string} string "Not Found"
+// @Router /vendors/search [get]
+func SearchVendor(c *gin.Context) {
+	searchQuery, present := c.GetQuery("q")
+	if present {
+		vendor, err := vendor.Search(searchQuery)
+		helper.AnswerGetAll(vendor, err, c)
+
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Search query not provided"})
+	}
 }
 
 // GetVendorById godoc

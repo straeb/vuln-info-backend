@@ -29,7 +29,6 @@ func GetAllComponents(c *gin.Context) {
 
 	var input models.Component
 
-	searchQuery, searchExists := c.GetQuery("search")
 	vendorName, vendorExists := c.GetQuery("vendor")
 	mail, userExists := c.GetQuery("for")
 
@@ -51,15 +50,34 @@ func GetAllComponents(c *gin.Context) {
 		}
 	}
 
-	if searchExists {
-		component, err := component.Search(&input, searchQuery)
-		helper.AnswerGetAll(component, err, c)
-		return
-	}
-
 	err := c.ShouldBind(&input)
 	components, err := component.GetAll(&input)
 	helper.AnswerGetAll(components, err, c)
+}
+
+// SearchComponents godoc
+// @summary Search Component
+// @description Search component by name.
+// @tags Components
+// @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
+//@produce json
+// @Param    q    query     string  true  "Search components by name."
+// @response 200 {array} models.Component "OK"
+// @failure 400 {object} ApiError "Bad Request"
+// @failure 401 {string} string "Unauthorized"
+// @failure 404 {string} string "Not Found"
+//@Router /components/search [get]
+func SearchComponents(c *gin.Context) {
+	searchQuery, searchExists := c.GetQuery("q")
+
+	if searchExists {
+		component, err := component.Search(searchQuery)
+		helper.AnswerGetAll(component, err, c)
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Search query not provided"})
+
+	}
 }
 
 // GetAllComponentVulnerabilities godoc
@@ -181,50 +199,70 @@ func DeleteComponent(c *gin.Context) {
 	c.JSON(http.StatusOK, "Deleted")
 }
 
-// OwnerComponentActions godoc
-// @summary (Un-)Subscribe to a component
-// @description (Un-)Subscribe an user via username (e-mail) to an specific entry.
-// @description Only ONE parameter is accepted. If both are provided "subscribe" will be accepted.
+// SubscribeUserToComponent godoc
+// @summary Subscribe a user to a component
+// @description Subscribe a user via username (e-mail) to an specific entry.
 // @tags Components
 // @Security ApiKeyAuth
 // @param Authorization header string true "Authorization"
-// @Param    subscribe   query     string  true  "Subscribe user"
-// @Param    unsubscribe   query     string  true  "Subscribe user"
+// @Param    user   query     string  true  "user to subscribe"
 // @Param 	 id   path      int  true  "component ID"
 // @response 200 {string} string "OK"
 // @failure 400 {object} ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
-//@Router /components/{id} [post]
-func OwnerComponentActions(c *gin.Context) {
+//@Router /components/{id}/subscribe [post]
+func SubscribeUserToComponent(c *gin.Context) {
 
-	subscriber, subscribe := c.GetQuery("subscribe")
-	unsubscriber, unsubscribe := c.GetQuery("unsubscribe")
+	subscriber, userPresent := c.GetQuery("user")
 
-	if subscribe {
+	if userPresent {
 
-		if err2 := component.UserAssociations(
+		if err := component.UserAssociations(
 			c.Param("id"),
 			subscriber,
-			true); err2 != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err2.Error()})
-			return
-		}
-		c.JSON(http.StatusOK, "subscribed")
-
-	} else if unsubscribe {
-		if err2 := component.UserAssociations(
-			c.Param("id"),
-			unsubscriber,
-			false,
-		); err2 != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err2.Error()})
+			true); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 		c.JSON(http.StatusOK, "subscribed")
 
 	} else {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Please specify correct query parameters"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "User query not provides"})
+
+	}
+}
+
+// UnsubscribeUserToComponent godoc
+// @summary Unsubscribe a user form a component
+// @description Unsubscribe a user via username (e-mail) from an specific entry.
+// @tags Components
+// @Security ApiKeyAuth
+// @param Authorization header string true "Authorization"
+// @Param    user   query     string  true  "user to remove"
+// @Param 	 id   path      int  true  "component ID"
+// @response 200 {string} string "OK"
+// @failure 400 {object} ApiError "Bad Request"
+// @failure 401 {string} string "Unauthorized"
+// @failure 404 {string} string "Not Found"
+//@Router /components/{id}/unsubscribe [post]
+func UnsubscribeUserToComponent(c *gin.Context) {
+
+	subscriber, userPresent := c.GetQuery("user")
+
+	if userPresent {
+
+		if err := component.UserAssociations(
+			c.Param("id"),
+			subscriber,
+			false); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(http.StatusOK, "unsubscribed")
+
+	} else {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "User query not provided"})
 
 	}
 }

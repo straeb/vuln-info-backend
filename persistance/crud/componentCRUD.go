@@ -45,7 +45,7 @@ func (ComponentCRUD) GetAll(params *models.Component) ([]models.Component, error
 
 }
 
-func (ComponentCRUD) Search(params *models.Component, searchQuery string) ([]models.Component, error) {
+func (ComponentCRUD) Search(searchQuery string) ([]models.Component, error) {
 	//escape harmful characters
 	searchQuery = strings.ReplaceAll(searchQuery, "?/\\=;", "")
 	var components []models.Component
@@ -56,7 +56,6 @@ func (ComponentCRUD) Search(params *models.Component, searchQuery string) ([]mod
 			Preload("Vendor").
 			Preload("Owners").
 			Where("name LIKE ?", "%"+searchQuery+"%").
-			Where(&params).
 			Find(&components).Error; err != nil {
 			return nil, db.Errs(err)
 		}

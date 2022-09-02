@@ -14,6 +14,8 @@ func InitRouting(debug bool) {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
+	var apiVersion = "api/v1"
+
 	router := gin.Default()
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
@@ -26,33 +28,36 @@ func InitRouting(debug bool) {
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	//Auth
-	router.POST("api/v1/login", Login)
-	router.POST("api/v1/signup", SignUp)
+	router.POST(apiVersion+"auth/login", Login)
+	router.POST(apiVersion+"auth/signup", SignUp)
 
 	//Components
-	components := router.Group("api/v1/components")
+	components := router.Group(apiVersion + "/components")
 	components.Use(helper.AuthorizeJWT())
 
 	components.GET("", GetAllComponents)
+	components.GET("/search", SearchComponents)
 	components.GET("/:id/vulnerabilities", GetAllComponentVulnerabilities)
 	components.GET("/:id", GetComponentById)
 	components.POST("", CreateComponent)
-	components.POST("/:id", OwnerComponentActions)
+	components.POST("/:id/subscribe", SubscribeUserToComponent)
+	components.POST("/:id/unsubscribe", UnsubscribeUserToComponent)
 	components.PATCH("/:id", UpdateComponent)
 	components.DELETE("/:id", DeleteComponent)
 
 	//Vendors
-	vendors := router.Group("api/v1/vendors")
+	vendors := router.Group(apiVersion + "/vendors")
 	vendors.Use(helper.AuthorizeJWT())
 
 	vendors.GET("", GetAllVendors)
+	vendors.GET("/search", SearchVendor)
 	vendors.GET("/:id", GetVendorById)
 	vendors.PATCH("/:id", UpdateVendor)
 	vendors.DELETE("/:id", DeleteVendor)
 	vendors.POST("", CreateVendor)
 
 	//Vulnerabilities
-	vuln := router.Group("api/v1/vulnerabilities")
+	vuln := router.Group(apiVersion + "/vulnerabilities")
 	vuln.Use(helper.AuthorizeJWT())
 
 	vuln.GET("/cpe", GetAllVulnerabilitiesCpe)
@@ -64,14 +69,14 @@ func InitRouting(debug bool) {
 	//vuln.DELETE("/:id", DeleteVulnerability)
 
 	//Notifciations
-	notification := router.Group("api/v1/notifications")
-	notification.Use(helper.AuthorizeJWT())
+	notifi := router.Group(apiVersion + "/notifications")
+	notifi.Use(helper.AuthorizeJWT())
 
-	notification.GET("", GetAllNotifications)
-	notification.GET("/:id", GetNotificationById)
+	notifi.GET("", GetAllNotifications)
+	notifi.GET("/:id", GetNotificationById)
 
 	//config
-	configEndpoint := router.Group("api/v1/config")
+	configEndpoint := router.Group(apiVersion + "/config")
 	configEndpoint.Use(helper.AuthorizeJWT())
 
 	configEndpoint.GET("/rss", RunParser)

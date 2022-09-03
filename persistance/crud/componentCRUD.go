@@ -110,6 +110,11 @@ func (ComponentCRUD) Create(input *models.CreateUpdateComponentInput, usr string
 
 	component := input.TurnToComponent()
 
+	result, _ := thisComponent.GetByCPE(component.Cpe)
+	if result.Id != 0 {
+		return nil, errors.New("Record with this CPE already exists")
+	}
+
 	if err := db.DB.Model(component).
 		Create(&component).
 		Preload(clause.Associations).

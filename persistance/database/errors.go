@@ -5,8 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// errs returns generic errors to keep the db state locked
-
+// Errs returns generic errors to keep the db state locked
 func Errs(e error) error {
 
 	if errors.Is(e, gorm.ErrRecordNotFound) {

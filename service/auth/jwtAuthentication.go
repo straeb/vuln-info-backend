@@ -2,6 +2,7 @@ package auth
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -17,7 +18,7 @@ type authCustomClaims struct {
 func getSecretKey() string {
 	secret := os.Getenv("SECRET")
 	if secret == "" {
-		secret = "secret"
+		log.Fatal("Error loading SECRET")
 	}
 	return secret
 }

@@ -20,9 +20,9 @@ type LoginSuccess struct {
 // @Param  Credentials  body  models.CreateUpdateUserInput  true  "Login Credentials"
 // @response 200 {object} LoginSuccess "OK"
 // @failure 401 {string} string "Unauthorized"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 404 {string} string "Not Found"
-//@Router /login [post]
+//@Router /auth/login [post]
 func Login(ctx *gin.Context) {
 	var credential models.CreateUpdateUserInput
 	err := helper.BindJSON(&credential, ctx)

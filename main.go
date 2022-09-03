@@ -7,21 +7,21 @@ import (
 	"vuln-info-backend/service/core"
 )
 
-// @title           Vulnerability API
+// @title           Vulnerability-Info-API
 // @version         1.0
-// @description     This is the endpoint for component operations
+// @description.markdown
 // @BasePath  /api/v1
 // @securityDefinitions.apikey ApiKeyAuth
+// @description Use this token format: 'Bearer {key}'
 // @in header
-// @name Bearer <Add access token here>
+// @name Authorization
 
 func main() {
 
-	//Switch between Prod & Debug
+	//Switch between Prod (Docker) & Debug
 	var DEBUG bool = true
 
 	dsn := core.GetDSN(DEBUG)
-
 	data, err := core.ReadConfig(DEBUG)
 	if err == nil {
 		if err := core.InitCronJobs(data); err != nil {

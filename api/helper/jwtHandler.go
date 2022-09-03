@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"vuln-info-backend/service/auth"
 )
@@ -15,7 +16,8 @@ func AuthorizeJWT() gin.HandlerFunc {
 		if err == nil {
 			if token.Valid {
 				claims := token.Claims.(jwt.MapClaims)
-				fmt.Println(claims)
+				usr := claims["name"].(string)
+				log.Println(usr)
 			} else {
 				fmt.Println(err)
 				c.AbortWithStatus(http.StatusUnauthorized)

@@ -16,6 +16,98 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/auth/login": {
+            "post": {
+                "description": "Login Endpoint takes username and password and returns a JWT-Token if authorized.",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Login Endpoint",
+                "parameters": [
+                    {
+                        "description": "Login Credentials",
+                        "name": "Credentials",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateUpdateUserInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handler.LoginSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/signup": {
+            "post": {
+                "description": "SingUp Endpoint takes username and password and returns a user object.",
+                "consumes": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Sign Up Endpoint",
+                "parameters": [
+                    {
+                        "description": "username and password",
+                        "name": "Credentials",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CreateUpdateUserInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/components": {
             "get": {
                 "security": [
@@ -32,19 +124,6 @@ const docTemplate = `{
                 ],
                 "summary": "Get All Components",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Search components by name.",
-                        "name": "search",
-                        "in": "query"
-                    },
                     {
                         "type": "string",
                         "description": "Get components by vendor name.",
@@ -71,7 +150,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -107,13 +186,6 @@ const docTemplate = `{
                 "summary": "Create a new component",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "description": "Add Component.",
                         "name": "Component",
                         "in": "body",
@@ -133,7 +205,62 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/components/search": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Search component by name.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Components"
+                ],
+                "summary": "Search Component",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Search components by name.",
+                        "name": "q",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Component"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -168,13 +295,6 @@ const docTemplate = `{
                 "summary": "Get component by ID",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "type": "integer",
                         "description": "component ID",
                         "name": "id",
@@ -192,75 +312,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "(Un-)Subscribe an user via username (e-mail) to an specific entry.\nOnly ONE parameter is accepted. If both are provided \"subscribe\" will be accepted.",
-                "tags": [
-                    "Components"
-                ],
-                "summary": "(Un-)Subscribe to a component",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Subscribe user",
-                        "name": "subscribe",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Subscribe user",
-                        "name": "unsubscribe",
-                        "in": "query",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "component ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -290,13 +342,6 @@ const docTemplate = `{
                 "summary": "Delete a component",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "type": "integer",
                         "description": "component ID",
                         "name": "id",
@@ -314,7 +359,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -350,13 +395,6 @@ const docTemplate = `{
                 "summary": "Update a component",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "type": "integer",
                         "description": "component ID",
                         "name": "id",
@@ -383,7 +421,119 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/components/{id}/subscribe": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Subscribe a user via username (e-mail) to an specific entry.",
+                "tags": [
+                    "Components"
+                ],
+                "summary": "Subscribe a user to a component",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "user to subscribe",
+                        "name": "user",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "component ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/components/{id}/unsubscribe": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Unsubscribe a user via username (e-mail) from an specific entry.",
+                "tags": [
+                    "Components"
+                ],
+                "summary": "Unsubscribe a user form a component",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "user to remove",
+                        "name": "user",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "component ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -418,13 +568,6 @@ const docTemplate = `{
                 "summary": "Get component vulnerabilities by ID.",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "type": "integer",
                         "description": "component ID",
                         "name": "id",
@@ -445,7 +588,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -463,38 +606,45 @@ const docTemplate = `{
                 }
             }
         },
-        "/login": {
-            "post": {
-                "description": "Login Endpoint takes username and password and returns a JWT-Token if authorized.",
-                "consumes": [
-                    "application/json"
+        "/config/match": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
                 ],
+                "description": "Checks the components against vulnerabilities for a given time period.\nE.g.: '.../match?from=0?to=-10' covers Notifications created between today and 10 days ago.",
                 "tags": [
-                    "Authorization"
+                    "Config"
                 ],
-                "summary": "Login Endpoint",
+                "summary": "Check components for vulnerabilities",
                 "parameters": [
                     {
-                        "description": "Login Credentials",
-                        "name": "Credentials",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.CreateUpdateUserInput"
-                        }
+                        "type": "integer",
+                        "description": "From days back: '0' = today. Must be \u003c 1.",
+                        "name": "from",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "To days back. Must be \u003c 0.",
+                        "name": "to",
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/api.LoginSuccess"
+                            "type": "string"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -512,38 +662,238 @@ const docTemplate = `{
                 }
             }
         },
-        "/signup": {
-            "post": {
-                "description": "SingUp Endpoint takes username and password and returns a user object.",
-                "consumes": [
+        "/config/rss": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Fetches the RSS Feed and runs the Parser, if new entries are available.",
+                "tags": [
+                    "Config"
+                ],
+                "summary": "Fetch RSS",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notifications": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns all listed notifications.",
+                "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Authorization"
+                    "Notifications"
                 ],
-                "summary": "Sign Up Endpoint",
+                "summary": "Get All notifications",
                 "parameters": [
                     {
-                        "description": "username and password",
-                        "name": "credentials",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.CreateUpdateUserInput"
-                        }
+                        "type": "string",
+                        "description": "Get notifications for a DFN-Link.",
+                        "name": "link",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Get all Notifications for a specific CVSS base score.",
+                        "name": "cvss_base",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Get all Notifications for a specific CVSS exploitability score.",
+                        "name": "cvss_exploitability",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Get all Notifications for a specific CVSS impact score.",
+                        "name": "cvss_impact",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Get all Notifications for a specific CVSS temporal score.",
+                        "name": "cvss_temp",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Get all Notifications associated with a specific CVE-ID. Will not succeed in combination with 'cve_id' or 'for'.",
+                        "name": "cve_id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Get all Notifications associated with or without a CVEs. Will not succeed in combination with 'cve' or 'for'.",
+                        "name": "cve",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Get all Notifications that match components of a username (e-mail). Will not succeed in combination with 'cve' or 'cve_id'.",
+                        "name": "for",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Notification"
+                            }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notifications/search": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Search notifications by title.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Search notifications",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Search notifications by title.",
+                        "name": "q",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Notification"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notifications/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns notification for a specific ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Get notification by ID",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "notification ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Notification"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
                         }
                     },
                     "404": {
@@ -570,21 +920,6 @@ const docTemplate = `{
                     "Vendors"
                 ],
                 "summary": "Get All Vendors",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "Search vendor by name.",
-                        "name": "search",
-                        "in": "query"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -598,7 +933,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -634,13 +969,6 @@ const docTemplate = `{
                 "summary": "Create a new vendor",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "description": "Add Vendor.",
                         "name": "Vendor",
                         "in": "body",
@@ -660,7 +988,62 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/vendors/search": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Search vendor by name.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Vendors"
+                ],
+                "summary": "Search vendor",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Search vendor by name.",
+                        "name": "q",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Vendor"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -695,13 +1078,6 @@ const docTemplate = `{
                 "summary": "Get vendor by ID",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "type": "integer",
                         "description": "vendor ID",
                         "name": "id",
@@ -719,7 +1095,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -749,13 +1125,6 @@ const docTemplate = `{
                 "summary": "Delete a vendor",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "type": "integer",
                         "description": "component ID",
                         "name": "id",
@@ -773,7 +1142,7 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -809,13 +1178,6 @@ const docTemplate = `{
                 "summary": "Update a vendor entry",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "type": "integer",
                         "description": "vendor ID",
                         "name": "id",
@@ -842,7 +1204,105 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/api.ApiError"
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/vulnerabilities": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns a list of all vulnerabilities which have been mentioned in notifications containing a CVE-ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Vulnerabilities"
+                ],
+                "summary": "Get all notified vulnerabilities",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Vulnerability"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/vulnerabilities/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Returns vulnerability entry for a specific CVE-ID.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Vulnerabilities"
+                ],
+                "summary": "Get vulnerability by CVE-ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "CVE-ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Vulnerability"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/helper.ApiError"
                         }
                     },
                     "401": {
@@ -862,18 +1322,18 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "api.ApiError": {
+        "handler.LoginSuccess": {
             "type": "object",
             "properties": {
-                "error": {
+                "token": {
                     "type": "string"
                 }
             }
         },
-        "api.LoginSuccess": {
+        "helper.ApiError": {
             "type": "object",
             "properties": {
-                "token": {
+                "error": {
                     "type": "string"
                 }
             }
@@ -961,6 +1421,44 @@ const docTemplate = `{
                 }
             }
         },
+        "models.Notification": {
+            "type": "object",
+            "properties": {
+                "cvss_base": {
+                    "type": "string"
+                },
+                "cvss_exploitability": {
+                    "type": "string"
+                },
+                "cvss_impact": {
+                    "type": "string"
+                },
+                "cvss_temp": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "link": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "pub_date": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "vulnerabilities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Vulnerability"
+                    }
+                }
+            }
+        },
         "models.User": {
             "type": "object",
             "required": [
@@ -1006,8 +1504,9 @@ const docTemplate = `{
     },
     "securityDefinitions": {
         "ApiKeyAuth": {
+            "description": "Use this token format: 'Bearer {key}'",
             "type": "apiKey",
-            "name": "Bearer \u003cAdd access token here\u003e",
+            "name": "Authorization",
             "in": "header"
         }
     }
@@ -1019,8 +1518,8 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "",
 	BasePath:         "/api/v1",
 	Schemes:          []string{},
-	Title:            "Vulnerability API",
-	Description:      "This is the endpoint for component operations",
+	Title:            "Vulnerability-Info-API",
+	Description:      "## General\nThis is the documentation of the Vulnerability-Info-API.\nVulnerability-Info-API receives vulnerability related notification from the DFN-CERT and scans it for CVEs. If CVEs are present more information about the vulnerabilities will be fetched and saved in association with the notification that supplied the information. If the provided notification does not contain any CVEs it will be saved anyway but no further information will be generated but the notification will also be available.\n\nOn a regular basis, all saved notifications that came with CVE information will be compared with the stored components via CPE identifier. If one of the components is affected by a provided information, they will also get associated and these relations will be made available through this API.\n\nThe basic workflow is described in the following, but it's recommended to use an UI (WIP) based on this API.\n\n## Basic Workflow\n\n### 1. Create an account\nCreate an Account an sign up at `/auth/signup`\n\n### 2. Login\nLogin with your freshly created account under `auth/login`\nYou will receive a token to authorize your further requests. Use it in the request header like this:  `Authorization: Bearer <token>`\n\n### 4. Search or Add your components\nSearch for exiting components via `/components/search` or create new ones:\n1. Search for stored Vendors at `/vendors/search` or create them at `vendors`.\n2. Create new components at `/components` with the previous given `vendorID`. Please make sure to set a proper CPE. It's recommended to get them form the official [CPE Dictionary](https://nvd.nist.gov/products/cpe/search))\n\n### 5. Subscribe to your components\nSubscribe to the components you like to monitor via  `/components/{id}/subscribe?user=example@domain.com`\n\n### 6. Check for notifications\nRegularly check for notifications that address you and your components at `/notifications?for=example@domain.com` or browse all stored notifications at `/notifications`\n",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

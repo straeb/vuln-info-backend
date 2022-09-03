@@ -15,10 +15,9 @@ var vendor crud.VendorCRUD
 // @description Returns a list of all vendors.
 // @tags Vendors
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @produce json
 // @response 200 {array} models.Vendor "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 // @Router /vendors [get]
@@ -36,11 +35,10 @@ func GetAllVendors(c *gin.Context) {
 // @description Search vendor by name.
 // @tags Vendors
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @produce json
 // @Param    q    query     string  true  "Search vendor by name."
 // @response 200 {array} models.Vendor "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 // @Router /vendors/search [get]
@@ -60,11 +58,10 @@ func SearchVendor(c *gin.Context) {
 // @description Returns vedndor for a specific ID.
 // @tags Vendors
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @produce json
 // @Param    id   path      int  true  "vendor ID"
 // @response 200 {object} models.Vendor "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /vendors/{id} [get]
@@ -73,18 +70,19 @@ func GetVendorById(c *gin.Context) {
 	helper.Answer(vendor, err, c)
 }
 
+// @pardsfam Authorization header string true "Authorization"
+
 // CreateVendor godoc
 // @summary Create a new vendor
 // @description Create a new Vendor.
 // @description Returns created vendor.
 // @tags Vendors
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @produce json
 // @accept json
 // @Param    Vendor  body      models.CreateUpdateVendorInput  true  "Add Vendor."
 // @response 200 {object} models.Vendor "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /vendors [post]
@@ -104,13 +102,12 @@ func CreateVendor(c *gin.Context) {
 // @description Will not succeed if vendor is in use by a component.
 // @tags Vendors
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @produce json
 // @accept json
 // @Param        id   path      int  true  "vendor ID"
 // @Param        Vendor  body      models.CreateUpdateVendorInput  true  "Update Vendor."
 // @response 200 {object} models.Vendor "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /vendors/{id} [patch]
@@ -131,10 +128,9 @@ func UpdateVendor(c *gin.Context) {
 // @description Will not succeed if vendor is in use by a component.
 // @tags Vendors
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @Param        id   path      int  true  "component ID"
 // @response 200 {string} string "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /vendors/{id} [delete]

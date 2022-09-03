@@ -15,13 +15,11 @@ var component crud.ComponentCRUD
 // @description Returns all listed components.
 // @tags Components
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 //@produce json
-// @Param    search    query     string  false  "Search components by name."
 // @Param    vendor    query     string  false  "Get components by vendor name."
 // @Param    for    query     string  false  "Get components assigned to specific username (e-mail)."
 // @response 200 {array} models.Component "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /components [get]
@@ -60,11 +58,10 @@ func GetAllComponents(c *gin.Context) {
 // @description Search component by name.
 // @tags Components
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 //@produce json
 // @Param    q    query     string  true  "Search components by name."
 // @response 200 {array} models.Component "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /components/search [get]
@@ -85,11 +82,10 @@ func SearchComponents(c *gin.Context) {
 // @description Returns all listed vulnerabilities for a specific component.
 // @tags Components
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @produce json
 // @Param        id   path      int  true  "component ID"
 // @response 200 {array} models.Vulnerability "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /components/{id}/vulnerabilities [get]
@@ -107,11 +103,10 @@ func GetAllComponentVulnerabilities(c *gin.Context) {
 // @description Returns component for a specific ID.
 // @tags Components
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @produce json
 // @Param        id   path      int  true  "component ID"
 // @response 200 {object} models.Component "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /components/{id} [get]
@@ -128,12 +123,11 @@ func GetComponentById(c *gin.Context) {
 // @description Returns created component.
 // @tags Components
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @produce json
 // @accept json
 // @Param   Component  body      models.CreateUpdateComponentInput  true  "Add Component."
 // @response 200 {object} models.Component "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /components [post]
@@ -155,13 +149,12 @@ func CreateComponent(c *gin.Context) {
 // @description Will not succeed if component is in use by other users.
 // @tags Components
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @produce json
 // @accept json
 // @Param        id   path      int  true  "component ID"
 // @Param        Component  body      models.CreateUpdateComponentInput  true  "Update Component."
 // @response 200 {object} models.Component "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /components/{id} [patch]
@@ -182,10 +175,9 @@ func UpdateComponent(c *gin.Context) {
 // @description Will not succeed if component is in use by other users.
 // @tags Components
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @Param        id   path      int  true  "component ID"
 // @response 200 {string} string "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /components/{id} [delete]
@@ -204,11 +196,10 @@ func DeleteComponent(c *gin.Context) {
 // @description Subscribe a user via username (e-mail) to an specific entry.
 // @tags Components
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @Param    user   query     string  true  "user to subscribe"
 // @Param 	 id   path      int  true  "component ID"
 // @response 200 {string} string "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /components/{id}/subscribe [post]
@@ -238,11 +229,10 @@ func SubscribeUserToComponent(c *gin.Context) {
 // @description Unsubscribe a user via username (e-mail) from an specific entry.
 // @tags Components
 // @Security ApiKeyAuth
-// @param Authorization header string true "Authorization"
 // @Param    user   query     string  true  "user to remove"
 // @Param 	 id   path      int  true  "component ID"
 // @response 200 {string} string "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 401 {string} string "Unauthorized"
 // @failure 404 {string} string "Not Found"
 //@Router /components/{id}/unsubscribe [post]

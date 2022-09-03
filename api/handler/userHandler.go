@@ -19,11 +19,11 @@ func GetAllUsers(c *gin.Context) {
 // @description SingUp Endpoint takes username and password and returns a user object.
 // @tags Authorization
 // @accept json
-// @Param  credentials  body  models.CreateUpdateUserInput  true  "username and password"
+// @Param  Credentials  body  models.CreateUpdateUserInput  true  "username and password"
 // @response 200 {object} models.User "OK"
-// @failure 400 {object} ApiError "Bad Request"
+// @failure 400 {object} helper.ApiError "Bad Request"
 // @failure 404 {string} string "Not Found"
-//@Router /signup [post]
+//@Router /auth/signup [post]
 func SignUp(c *gin.Context) {
 	var input models.CreateUpdateUserInput
 

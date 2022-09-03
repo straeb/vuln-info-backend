@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"log"
 	"vuln-info-backend/api/helper"
 )
 
@@ -14,7 +15,7 @@ func InitRouting(debug bool) {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
-	var apiVersion = "api/v1"
+	var apiVersion = "/api/v1"
 
 	router := gin.Default()
 	config := cors.DefaultConfig()
@@ -28,8 +29,8 @@ func InitRouting(debug bool) {
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	//Auth
-	router.POST(apiVersion+"auth/login", Login)
-	router.POST(apiVersion+"auth/signup", SignUp)
+	router.POST(apiVersion+"/auth/login", Login)
+	router.POST(apiVersion+"/auth/signup", SignUp)
 
 	//Components
 	components := router.Group(apiVersion + "/components")
@@ -60,8 +61,8 @@ func InitRouting(debug bool) {
 	vuln := router.Group(apiVersion + "/vulnerabilities")
 	vuln.Use(helper.AuthorizeJWT())
 
-	vuln.GET("/cpe", GetAllVulnerabilitiesCpe)
-	vuln.GET("/cpe/:id", GetVulnerabilitiesByIdCpe)
+	//vuln.GET("/cpe", GetAllVulnerabilitiesCpe)
+	//vuln.GET("/cpe/:id", GetVulnerabilitiesByIdCpe)
 	vuln.GET("", GetAllVulnerabilities)
 	vuln.GET("/:id", GetVulnerabilityById)
 	//vuln.POST("", CreateVulnerability)
@@ -74,6 +75,7 @@ func InitRouting(debug bool) {
 
 	notifi.GET("", GetAllNotifications)
 	notifi.GET("/:id", GetNotificationById)
+	notifi.GET("/search", SearchNotification)
 
 	//config
 	configEndpoint := router.Group(apiVersion + "/config")
@@ -81,6 +83,9 @@ func InitRouting(debug bool) {
 
 	configEndpoint.GET("/rss", RunParser)
 	configEndpoint.GET("/match", CheckCPEs)
-	router.Run(":8080")
+	err := router.Run(":8080")
+	if err != nil {
+		log.Fatalln(err.Error())
+	}
 
 }

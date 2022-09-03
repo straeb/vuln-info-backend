@@ -14,7 +14,7 @@ type LoginService interface {
 func LoginUser(email string, password string) bool {
 
 	usr, err := user.GetByMail(email)
-	if usr.Id == 0 || err != nil {
+	if usr == nil || err != nil {
 		return false
 	}
 	if err = bcrypt.CompareHashAndPassword([]byte(usr.Password), []byte(password)); err != nil {

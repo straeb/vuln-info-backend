@@ -28,7 +28,7 @@ func (NotificationCRUD) GetAll(params *models.Notification) ([]models.Notificati
 	return notifications, nil
 }
 
-func (NotificationCRUD) Search(params *models.Notification, searchQuery string) ([]models.Notification, error) {
+func (NotificationCRUD) Search(searchQuery string) ([]models.Notification, error) {
 	searchQuery = strings.ReplaceAll(searchQuery, "?/\\=;", "")
 	var notifications []models.Notification
 	if len(searchQuery) > 0 {
@@ -36,7 +36,6 @@ func (NotificationCRUD) Search(params *models.Notification, searchQuery string) 
 		if err := db.DB.Model(&notifications).
 			Preload("Vulnerabilities").
 			Where("title LIKE ?", "%"+searchQuery+"%").
-			Where(&params).
 			Find(&notifications).Error; err != nil {
 			return nil, db.Errs(err)
 		}

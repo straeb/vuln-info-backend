@@ -32,7 +32,7 @@ func CheckFeed(dfnURL string) {
 
 		//Check if the feed contains new updates since the last refresh
 		if feed.UpdatedParsed.After(lastEntry) {
-			findValuableEntries(*feed)
+			FindValuableEntries(*feed)
 			lastEntry = *feed.Items[0].PublishedParsed
 
 		} else {
@@ -48,7 +48,7 @@ and searches for occurring CVE identifiers in the body and the title.
 If so, a new notification object gets created in the database.
 
 */
-func findValuableEntries(feed gofeed.Feed) {
+func FindValuableEntries(feed gofeed.Feed) [3]int {
 
 	//
 	newEntriesCount := 0
@@ -61,7 +61,7 @@ func findValuableEntries(feed gofeed.Feed) {
 		if item.Categories[0] == FEED_CATEGORY_VULN &&
 
 			//This function is only called, when there are new entries, but
-			//var feed also bring old entries eith it, so only the new ones
+			//var feed also bring old entries with it, so only the new ones
 			//are checked
 			item.PublishedParsed.After(lastEntry) {
 			newEntriesCount++
@@ -92,6 +92,7 @@ func findValuableEntries(feed gofeed.Feed) {
 
 	log.Printf("RSS: Checked %v new entries in %v. Found %v valuable entries, containing %v CVEs.",
 		newEntriesCount, feed.Title, valuableEntriesCount, cvesCount)
+	return [3]int{newEntriesCount, valuableEntriesCount, cvesCount}
 }
 
 /*

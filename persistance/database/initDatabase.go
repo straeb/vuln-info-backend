@@ -54,3 +54,24 @@ func ConnectDB(dsn string, debug bool) {
 
 	DB = dbase
 }
+
+func DropDB() {
+
+	DB.Migrator().DropTable(
+		&models.Vendor{},
+		&models.User{},
+		&models.Component{},
+		&models.Vulnerability{},
+		&models.Cpe{},
+		&models.Notification{},
+	)
+
+	// m..n tables
+	tables, _ := DB.Migrator().GetTables()
+
+	for _, table := range tables {
+		DB.Migrator().DropTable(table)
+
+	}
+
+}

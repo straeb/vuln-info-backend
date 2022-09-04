@@ -25,6 +25,14 @@
       <excludeFolder url="file://$MODULE_DIR$/.data/db/sys" />
       <excludeFolder url="file://$MODULE_DIR$/.data/db/vulninfo" />
       <excludeFolder url="file://$MODULE_DIR$/.data/app" />
+      <excludeFolder url="file://$MODULE_DIR$/test/.data/db/test/#innodb_redo" />
+      <excludeFolder url="file://$MODULE_DIR$/test/.data/db/test/#innodb_temp" />
+      <excludeFolder url="file://$MODULE_DIR$/test/.data/db/test/mysql" />
+      <excludeFolder url="file://$MODULE_DIR$/test/.data/db/test/performance_schema" />
+      <excludeFolder url="file://$MODULE_DIR$/test/.data/db/test/sys" />
+      <excludeFolder url="file://$MODULE_DIR$/test/.data/db/test/vulninfotest" />
+      <excludeFolder url="file://$MODULE_DIR$/.data" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/inspectionProfiles" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Python 3.10 interpreter library" level="application" />

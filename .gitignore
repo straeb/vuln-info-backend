@@ -4,6 +4,7 @@ vuln-info-backend
 /.data
 /.dev
 /.idea
+/test/.data
 !/docker-compose.yml
 !/cron-config.yml
 !/Dockerfile

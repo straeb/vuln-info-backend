@@ -1,114 +1,83 @@
 package core
 
 import (
-	"github.com/joho/godotenv"
 	"gopkg.in/robfig/cron.v2"
-	"gopkg.in/yaml.v3"
-	"io/ioutil"
 	"log"
 	"os"
+	"strconv"
 )
-
-func errLogger(err error) {
-	if err != nil {
-		log.Printf(err.Error())
-	}
-}
-
-/*
-ReadConfig reads the .yml config file and unmarshal it
-to a map
-*/
-func ReadConfig(debug bool) (map[interface{}]interface{}, error) {
-
-	data := make(map[interface{}]interface{})
-
-	var yFile []byte
-	var err error
-
-	if debug {
-		yFile, err = ioutil.ReadFile("cron-config.yml")
-	} else {
-		yFile, err = ioutil.ReadFile("/cron-config.yml")
-	}
-	if err != nil {
-		return data, err
-
-	}
-
-	err = yaml.Unmarshal(yFile, &data)
-	if err != nil {
-		return data, err
-	}
-	return data, nil
-}
 
 /*
 InitCronJobs sets up the corn jobs with the given temporal
-configs of the config file:
+configs of the env file:
 
 CheckFeed fetches the RSS feed
 MatchCPEs matches the API found CPEs against the CPEs from the
 component database. There are three of them to separate between
 old and new entries.
 */
-func InitCronJobs(data map[interface{}]interface{}) error {
+func InitCronJobs() {
+
+	var CronString1 = os.Getenv("CRON_STRING_1")
+
+	var FromDays1 = os.Getenv("FROM_DAYS_1")
+	fromDays1, err := strconv.Atoi(FromDays1)
+	errLogger(err)
+
+	var ToDays1 = os.Getenv("TO_DAYS_1")
+	toDays1, err := strconv.Atoi(ToDays1)
+	errLogger(err)
+
+	var CronString2 = os.Getenv("CRON_STRING_2")
+
+	var FromDays2 = os.Getenv("FROM_DAYS_2")
+	fromDays2, err := strconv.Atoi(FromDays2)
+	errLogger(err)
+
+	var ToDays2 = os.Getenv("TO_DAYS_2")
+	toDays2, err := strconv.Atoi(ToDays2)
+	errLogger(err)
+
+	var CronString3 = os.Getenv("CRON_STRING_3")
+
+	var FromDays3 = os.Getenv("FROM_DAYS_3")
+	fromDays3, err := strconv.Atoi(FromDays3)
+	errLogger(err)
+
+	var ToDays3 = os.Getenv("TO_DAYS_3")
+	toDays3, err := strconv.Atoi(ToDays3)
+	errLogger(err)
 
 	c := cron.New()
 
 	//RSS Feed
-	_, err := c.AddFunc(data["RSS_CRON_STRING"].(string), func() {
+	_, err1 := c.AddFunc(os.Getenv("RSS_CRON_STRING"), func() {
 		CheckFeed(GetRSSLink())
 	})
-	if err != nil {
-		return err
-	}
-
+	errLogger(err1)
 	// CPE Matching
-	_, err = c.AddFunc(data["1_CRON_STRING"].(string), func() {
-		MatchCPEs(data["1_FROM_DAYS"].(int),
-			data["1_TO_DAYS"].(int))
+	_, err1 = c.AddFunc(CronString1, func() {
+		MatchCPEs(fromDays1, toDays1)
 	})
-	if err != nil {
-		return err
-	}
+	errLogger(err1)
 
-	_, err = c.AddFunc(data["2_CRON_STRING"].(string), func() {
-		MatchCPEs(data["2_FROM_DAYS"].(int),
-			data["2_TO_DAYS"].(int))
+	_, err1 = c.AddFunc(CronString2, func() {
+		MatchCPEs(fromDays2, toDays2)
 	})
-	if err != nil {
-		return err
-	}
-	_, err = c.AddFunc(data["3_CRON_STRING"].(string), func() {
-		MatchCPEs(data["3_FROM_DAYS"].(int),
-			data["3_TO_DAYS"].(int))
+	errLogger(err1)
+
+	_, err1 = c.AddFunc(CronString3, func() {
+		MatchCPEs(fromDays3, toDays3)
 	})
-	if err != nil {
-		return err
-	}
+	errLogger(err1)
 
 	c.Start()
-
-	return nil
-
 }
 
 /*
-GetDSN is a Getter to make the DB config accessible in initDatabase.go
+GetDSN to make the DB config accessible in initDatabase.go
 */
-func GetDSN(debug bool) string {
-
-	var err error
-	if debug {
-		err = godotenv.Load(".env")
-	} else {
-		err = godotenv.Load("/.env")
-	}
-
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+func GetDSN() string {
 
 	var MysqlUser = os.Getenv("MYSQL_USER")
 	var MysqlPassword = os.Getenv("MYSQL_PASSWORD")
@@ -121,8 +90,16 @@ func GetDSN(debug bool) string {
 }
 
 /*
-GetRSSLink returns the link from the config file.
+GetRSSLink returns the link from the env file.
 */
 func GetRSSLink() string {
 	return os.Getenv("DFN_FEED_LINK")
 }
+
+func errLogger(err error) {
+	if err != nil {
+		log.Printf(err.Error())
+	}
+}
+
+

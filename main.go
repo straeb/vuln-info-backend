@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/joho/godotenv"
 	"vuln-info-backend/api/handler"
 	_ "vuln-info-backend/docs"
 	"vuln-info-backend/persistance/database"
@@ -21,17 +22,13 @@ func main() {
 	//Switch between Prod (Docker) & Debug
 	var DEBUG bool = false
 
-	dsn := core.GetDSN(DEBUG)
-	data, err := core.ReadConfig(DEBUG)
-	if err == nil {
-		if err := core.InitCronJobs(data); err != nil {
-			panic(err.Error())
-		}
-		database.ConnectDB(dsn, DEBUG)
-		handler.InitRouting(DEBUG)
-
-	} else {
-		panic(err.Error())
+	if DEBUG {
+		godotenv.Load(".env")
 	}
+
+	dsn := core.GetDSN()
+	core.InitCronJobs()
+	database.ConnectDB(dsn, DEBUG)
+	handler.InitRouting(DEBUG)
 
 }

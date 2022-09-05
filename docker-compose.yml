@@ -1,14 +1,30 @@
 version: '3'
 
 services:
-  app:
+  api:
     depends_on:
       - db
     build:
       context: .
     container_name: vuln-info-api
-    volumes:
-      - ./.data/app:/app:z
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_IP: ${MYSQL_IP}
+      MYSQL_PORT: ${MYSQL_PORT}
+      DFN_FEED_LINK: ${DFN_FEED_LINK}
+      SECRET: ${SECRET}
+      RSS_CRON_STRING: ${RSS_CRON_STRING}
+      CRON_STRING_1: ${CRON_STRING_1}
+      FROM_DAYS_1: ${FROM_DAYS_1}
+      TO_DAYS_1: ${TO_DAYS_1}
+      CRON_STRING_2: ${CRON_STRING_2}
+      FROM_DAYS_2: ${FROM_DAYS_2}
+      TO_DAYS_2: ${TO_DAYS_2}
+      CRON_STRING_3: ${CRON_STRING_3}
+      FROM_DAYS_3: ${FROM_DAYS_3}
+      TO_DAYS_3: ${TO_DAYS_3}
     network_mode: "host"
     deploy:
       restart_policy:

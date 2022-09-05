@@ -21,7 +21,11 @@ func InitRouting(debug bool) {
 	config := cors.DefaultConfig()
 	config.AllowAllOrigins = true
 	config.AllowCredentials = true
-	config.AddAllowHeaders("*")
+	config.AddAllowHeaders(
+		"Authorization",
+		"Content-Type",
+		"X-CSRF-Protection",
+	)
 	router.Use(cors.New(config))
 
 	helper.AddCustomValidators()
@@ -83,6 +87,9 @@ func InitRouting(debug bool) {
 
 	configEndpoint.GET("/rss", RunParser)
 	configEndpoint.GET("/match", CheckCPEs)
+
+	log.Println("Vuln-Info-API: Hello :)")
+
 	err := router.Run(":8080")
 	if err != nil {
 		log.Fatalln(err.Error())

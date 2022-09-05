@@ -12,24 +12,27 @@ import (
 	"testing"
 	"time"
 	"vuln-info-backend/api/handler"
+	db "vuln-info-backend/persistance/crud"
 )
+
+var vendorCrud = db.VendorCRUD{}
 
 func TestApi(t *testing.T) {
 
-	defer TearDown()
 	SetUp()
+	defer TearDown()
 
 	var wg sync.WaitGroup
 
 	wg.Add(2)
 	go runServer(&wg)
-	go runScript(&wg)
+	go runScript(t, &wg)
 
-	time.Sleep(20 * time.Second)
+	time.Sleep(10 * time.Second)
 	wg.Done()
 }
 
-func runScript(wg *sync.WaitGroup) {
+func runScript(t *testing.T, wg *sync.WaitGroup) {
 	defer wg.Done()
 	err := godotenv.Load("../.env")
 	if err != nil {
@@ -56,11 +59,16 @@ func runScript(wg *sync.WaitGroup) {
 	go copyOutput(stderr)
 
 	cmd.Wait()
+
+	_, err = vendorCrud.GetByName("fail=0")
+	if err != nil {
+		t.Error("API test failed")
+	}
 }
 
 func runServer(wg *sync.WaitGroup) {
 	defer wg.Done()
-	handler.InitRouting(true)
+	handler.InitRouting(false)
 }
 
 func copyOutput(r io.Reader) {

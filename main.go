@@ -19,7 +19,7 @@ import (
 func main() {
 
 	//Switch between Prod (Docker) & Debug
-	var DEBUG bool = true
+	var DEBUG bool = false
 
 	dsn := core.GetDSN(DEBUG)
 	data, err := core.ReadConfig(DEBUG)

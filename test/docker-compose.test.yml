@@ -12,7 +12,3 @@ services:
       MYSQL_PASSWORD: "test"
       MYSQL_DATABASE: "vulninfotest"
     network_mode: "host"
-    volumes:
-      - ./.data/db/test:/var/lib/mysql:z
-volumes:
-  db:

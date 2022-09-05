@@ -109,8 +109,6 @@ var feed1 gofeed.Feed = gofeed.Feed{
 //Switch between Prod (Docker) & Debug
 
 func TestFindValuableEntries(t *testing.T) {
-
-	defer TearDown()
 	SetUp()
 
 	output := core.FindValuableEntries(feed1)
@@ -119,5 +117,6 @@ func TestFindValuableEntries(t *testing.T) {
 		t.Error("Test Failed:  expected {} , recieved: {}", expected, output)
 	}
 
-	TearDown()
+	defer TearDown()
+
 }

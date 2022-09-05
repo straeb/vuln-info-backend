@@ -11,9 +11,8 @@ import db "vuln-info-backend/persistance/crud"
 
 func TestMatchCPEs(t *testing.T) {
 
-	defer TearDown()
-
 	SetUp()
+	defer TearDown()
 
 	var vendordb = db.VendorCRUD{}
 	var componentdb = db.ComponentCRUD{}

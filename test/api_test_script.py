@@ -1,11 +1,12 @@
+import itertools
 import json
 import requests
 import random, string
 from colorama import Fore
 
 # Tests API functions
-# Not beauty, but it does what its suppose to do.
-# Run on empty database
+# Not a beauty, but it does what its suppose to do.
+# Run on empty (test-)database
 # Partly fails if data src of API does not deliver CVEs
 
 
@@ -15,6 +16,7 @@ printResponses = False
 
 
 def assertEqual(msg, r, bool):
+
     if printResponses:
         if bool:
             print(Fore.WHITE + str(r.content))
@@ -22,12 +24,16 @@ def assertEqual(msg, r, bool):
         else:
             print(Fore.WHITE + str(r.content))
             print(Fore.RED + msg)
+            assertEqual.counter +=1
     else:
-        if bool:
-            print(Fore.GREEN + msg)
-        else:
-            print(Fore.RED + msg)
+            if bool:
+                print(Fore.GREEN + msg)
+            else:
+                print(Fore.RED + msg)
+                assertEqual.counter +=1
 
+
+assertEqual.counter = 0
 
 def randomword():
     letters = string.ascii_lowercase
@@ -264,3 +270,10 @@ assertEqual("Get notifications without cves", r, r.status_code == 200)
 
 r = DELETE("components/" + str(compId))
 assertEqual("Delete component", r, r.status_code == 200)
+
+resultVendor = {
+    "name": "fail=" + str(assertEqual.counter)
+}
+
+r = POST(resultVendor, "vendors")
+p("sent result")

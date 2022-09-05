@@ -2,7 +2,6 @@ package core
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -33,7 +32,7 @@ func callCircl(cve string) *models.Circl {
 	req.Header.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8")
 	//req.Header.Add("foo", "bar2")
 	response, err := client.Do(req)
-	fmt.Printf("Fetch: %v\n", BASE_URL+cve)
+	log.Printf("Fetch: %v\n", BASE_URL+cve)
 	if err != nil {
 		log.Printf(err.Error())
 		return nil

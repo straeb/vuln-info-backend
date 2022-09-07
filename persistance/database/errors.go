@@ -8,6 +8,10 @@ import (
 // Errs returns generic errors to keep the db state locked
 func Errs(e error) error {
 
+	if e == nil {
+		return nil
+	}
+
 	if errors.Is(e, gorm.ErrRecordNotFound) {
 		return e
 	}

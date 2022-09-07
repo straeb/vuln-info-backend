@@ -4,6 +4,7 @@ import (
 	"github.com/mmcdole/gofeed"
 	"golang.org/x/net/html"
 	"log"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -17,6 +18,8 @@ var notification crud.NotificationCRUD
 
 const FEED_CATEGORY_VULN = "Typ/Schwachstelle"
 
+var rssLog = log.New(os.Stderr, "[RSS] ", log.Ldate|log.Ltime)
+
 /*
 CheckFeed fetches the feed URL and calls the Parser,
 if there are new items since the last update of the feed.
@@ -28,7 +31,7 @@ func CheckFeed(dfnURL string) {
 	if err != nil {
 		log.Println(err.Error())
 	} else {
-		log.Println("RSS: Checking Feed: ", feed.Title)
+		rssLog.Printf("Checking Feed: %v", feed.Title)
 
 		//Check if the feed contains new updates since the last refresh
 		if feed.UpdatedParsed.After(lastEntry) {
@@ -36,7 +39,7 @@ func CheckFeed(dfnURL string) {
 			lastEntry = *feed.Items[0].PublishedParsed
 
 		} else {
-			log.Printf("RSS: Nothing new in %v\n", feed.Title)
+			rssLog.Printf("Nothing new in: %v\n", feed.Title)
 		}
 	}
 
@@ -90,7 +93,7 @@ func FindValuableEntries(feed gofeed.Feed) [3]int {
 		}
 	}
 
-	log.Printf("RSS: Checked %v new entries in %v. Found %v valuable entries, containing %v CVEs.",
+	rssLog.Printf("Checked %v new entries in: %v: Found %v valuable entries, containing %v CVEs.",
 		newEntriesCount, feed.Title, valuableEntriesCount, cvesCount)
 	return [3]int{newEntriesCount, valuableEntriesCount, cvesCount}
 }

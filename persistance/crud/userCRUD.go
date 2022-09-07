@@ -4,6 +4,7 @@ import (
 	"errors"
 	"golang.org/x/crypto/bcrypt"
 	"log"
+	"os"
 	"strconv"
 	"vuln-info-backend/models"
 	db "vuln-info-backend/persistance/database"
@@ -12,6 +13,8 @@ import (
 type UserCRUD struct{}
 
 var thisUser UserCRUD
+
+var userLog = log.New(os.Stderr, "[USER] ", log.Ldate|log.Ltime)
 
 func (UserCRUD) GetAll() []models.User {
 	var users []models.User
@@ -47,7 +50,7 @@ func (UserCRUD) Create(input models.CreateUpdateUserInput) (*models.User, error)
 		return nil, errors.New("username already taken")
 
 	}
-	log.Printf("Created user %v\n", user.EMail)
+	userLog.Printf("Created user %v\n", user.EMail)
 
 	return &models.User{
 		Id:    user.Id,
@@ -71,7 +74,7 @@ func (UserCRUD) Update(mail string, input models.CreateUpdateUserInput) (*models
 		return nil, db.Errs(err)
 	}
 
-	log.Print("updated", user)
+	userLog.Printf("updated %v\n", user)
 
 	return user, nil
 }

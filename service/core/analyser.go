@@ -2,19 +2,21 @@ package core
 
 import (
 	"log"
+	"os"
 	"vuln-info-backend/models"
 	"vuln-info-backend/persistance/crud"
 )
 
 var vulnerability crud.VulnerabilityCRUD
 var component crud.ComponentCRUD
+var matchLog = log.New(os.Stderr, "[ANALYSER] ", log.Ldate|log.Ltime)
 
 func MatchCPEs(from int, to int) {
 
 	//Get new Vulns from the last x days
 	vulns, _ := vulnerability.GetAllCVEsFrom(from, to)
-	log.Printf("Checking Vulnerabilities form the last %v to %v days:\n", from, to)
-
+	matchLog.Printf("Checking Vulnerabilities form the last %v to %v days:\n", from, to)
+	var matchCount = 0
 	//For each vulnerability
 	for _, vuln := range vulns {
 
@@ -49,13 +51,16 @@ func MatchCPEs(from int, to int) {
 
 				*/
 				if componentObj.Id != 0 {
+					matchCount++
 					vulnerability.AppendCPE(&vuln, cpe)
 					component.AppendVulnerability(componentObj, vuln)
-					log.Printf("Vulnerability %v assigned to %v:%v\n", vuln.CVEId, componentObj.Name, componentObj.Version)
+					matchLog.Printf("Vulnerability %v assigned to %v:%v\n", vuln.CVEId, componentObj.Name, componentObj.Version)
+				} else {
 				}
 			}
 		}
 
 	}
+	matchLog.Printf("Checked %v vulnerabilities. Found %v vulnerable componentes.\n", len(vulns), matchCount)
 
 }

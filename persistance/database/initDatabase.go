@@ -18,7 +18,7 @@ func ConnectDB(dsn string, debug bool) {
 		dbase, err = gorm.Open(
 			mysql.Open(dsn),
 			&gorm.Config{
-				Logger: logger.Default.LogMode(logger.Info),
+				Logger: logger.Default.LogMode(logger.Silent),
 			})
 		if err != nil {
 			panic(err.Error())

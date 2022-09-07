@@ -136,8 +136,6 @@ func (VulnerabilityCRUD) Create(input models.CreateVulnerabilityInput) (*models.
 		Find(&vuln).Error; err != nil {
 		return nil, db.Errs(err)
 	}
-
-	log.Printf("Created vulnerability recod %v\n", vuln.CVEId)
 	return vuln, nil
 }
 

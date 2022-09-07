@@ -2,10 +2,10 @@ package crud
 
 import (
 	"errors"
-	"fmt"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 	"vuln-info-backend/models"
@@ -15,6 +15,8 @@ import (
 type ComponentCRUD struct{}
 
 var thisComponent ComponentCRUD
+
+var compLog = log.New(os.Stderr, "[COMPONENT] ", log.Ldate|log.Ltime)
 
 func (ComponentCRUD) GetAll(params *models.Component) ([]models.Component, error) {
 	var components []models.Component
@@ -122,7 +124,7 @@ func (ComponentCRUD) Create(input *models.CreateUpdateComponentInput, usr string
 		return nil, db.Errs(err)
 	}
 
-	log.Printf("%v created componetent recod %+v\n", usr, component)
+	compLog.Printf("%v created componetent recod %v: %v\n", usr, component.Name, component.Version)
 
 	return component, nil
 
@@ -148,7 +150,7 @@ func (ComponentCRUD) Update(id string, input *models.CreateUpdateComponentInput,
 		Find(&component).Error; err != nil {
 		return nil, db.Errs(err)
 	}
-	log.Printf("%v updated component %+v\n", usr, component)
+	compLog.Printf("%v updated component Id: %v: %v\n", usr, component.Id, component.Name)
 	//Return of the full updated object won't work with all the associations
 	component, _ = thisComponent.GetById(id)
 	return component, nil
@@ -177,7 +179,7 @@ func (ComponentCRUD) Delete(id string, usr string) error {
 		return errors.New("could not delete")
 	}
 
-	fmt.Printf("%v delted component id: %v\n ", usr, IdInt)
+	compLog.Printf("%v delted component id: %v\n ", usr, IdInt)
 	return nil
 }
 
@@ -222,12 +224,15 @@ func (ComponentCRUD) UserAssociations(compId string, usrId string, append bool) 
 			Append(&user); err != nil {
 			return db.Errs(err)
 		}
+		compLog.Printf("User %v subscribed to %v:%v", user.EMail, comp.Name, comp.Version)
 	} else {
 		if err := db.DB.Model(&comp).
 			Association("Owners").
 			Delete(&user); err != nil {
 			return db.Errs(err)
 		}
+		compLog.Printf("User %v unsubscribed from to %v:%v", user.EMail, comp.Name, comp.Version)
+
 	}
 
 	return nil

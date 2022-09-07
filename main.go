@@ -20,7 +20,7 @@ import (
 func main() {
 
 	//Switch between Prod (Docker) & Debug
-	var DEBUG bool = false
+	var DEBUG bool = true
 
 	if DEBUG {
 		godotenv.Load(".env")
@@ -29,6 +29,7 @@ func main() {
 	dsn := core.GetDSN()
 	core.InitCronJobs()
 	database.ConnectDB(dsn, DEBUG)
+
 	handler.InitRouting(DEBUG)
 
 }

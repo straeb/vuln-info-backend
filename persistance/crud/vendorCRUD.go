@@ -3,6 +3,7 @@ package crud
 import (
 	"errors"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 	"vuln-info-backend/models"
@@ -12,6 +13,8 @@ import (
 type VendorCRUD struct{}
 
 var thisVendor VendorCRUD
+
+var vedorLog = log.New(os.Stderr, "[VENDOR] ", log.Ldate|log.Ltime)
 
 func (VendorCRUD) GetAll(params *models.Vendor) ([]models.Vendor, error) {
 	var vendors []models.Vendor
@@ -103,7 +106,7 @@ func (VendorCRUD) Create(n string, usr string) (*models.Vendor, error) {
 		return nil, db.Errs(err)
 	}
 
-	log.Printf("%v created vendor %+v\n", usr, vendor)
+	vedorLog.Printf("%v created vendor: %v\n", usr, vendor.Name)
 
 	return vendor, nil
 
@@ -127,7 +130,7 @@ func (VendorCRUD) Update(id string, n string, usr string) (*models.Vendor, error
 			Error; err != nil {
 			return nil, db.Errs(err)
 		}
-		log.Printf("%v updated %+v\n", usr, vendor)
+		vedorLog.Printf("%v updated vendor Id: %:%v\n", usr, vendor.Id, vendor.Name)
 
 		return vendor, nil
 	} else {
@@ -152,7 +155,7 @@ func (VendorCRUD) Delete(id string, usr string) error {
 			Delete(&vendor).Error; err != nil {
 			return db.Errs(err)
 		}
-		log.Printf("%v delted %v\n", usr, idInt)
+		vedorLog.Printf("%v deleted vendor %v\n", usr, idInt)
 		return nil
 	} else {
 		return errors.New("vendor is in use by component entries")

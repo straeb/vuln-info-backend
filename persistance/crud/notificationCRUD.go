@@ -4,6 +4,7 @@ import (
 	"errors"
 	"gorm.io/gorm"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -172,6 +173,7 @@ func (NotificationCRUD) GetById(id string) (*models.Notification, error) {
 }
 
 func (NotificationCRUD) Create(input models.CreateNotificationInput) (*models.Notification, error) {
+	var rssLog = log.New(os.Stderr, "[RSS] ", log.Ldate|log.Ltime)
 
 	notification := input.TurnToNotification()
 
@@ -183,7 +185,13 @@ func (NotificationCRUD) Create(input models.CreateNotificationInput) (*models.No
 		return nil, db.Errs(err)
 	}
 
-	log.Printf("Created notification: %\n", notification.Title)
+	rssLog.Printf("Created notification Id: %v: \"%v\"\n", notification.Id, notification.Title)
+	if len(input.Vulnerabilities) > 0 {
+		rssLog.Printf("Notification Id: %v covers: \n", notification.Id)
+	}
+	for _, vulnerability := range input.Vulnerabilities {
+		rssLog.Printf("\t - %s\n", vulnerability.CVEId)
+	}
 	return notification, nil
 
 }

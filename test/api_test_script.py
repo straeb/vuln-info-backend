@@ -227,7 +227,7 @@ assertEqual("subscribe existing user to component", r, r.status_code == 200)
 r = GET(path + "/" + str(compId) + "/vulnerabilities")
 assertEqual("Get vulnerabilities for component", r, r.status_code == 200)
 
-r = POST("","config/match?from=0&to=-300")
+r = POST(" ","config/match?from=0&to=-300")
 assertEqual("run cpe match", r, r.status_code == 200)
 
 r = GET(path + "/" + str(compId) + "/vulnerabilities")

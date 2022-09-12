@@ -25,6 +25,7 @@ func InitRouting(debug bool) {
 		"Authorization",
 		"Content-Type",
 		"X-CSRF-Protection",
+		"Accept",
 	)
 	router.Use(cors.New(config))
 
@@ -85,8 +86,8 @@ func InitRouting(debug bool) {
 	configEndpoint := router.Group(apiVersion + "/config")
 	configEndpoint.Use(helper.AuthorizeJWT())
 
-	configEndpoint.GET("/rss", RunParser)
-	configEndpoint.GET("/match", CheckCPEs)
+	configEndpoint.POST("/rss", RunParser)
+	configEndpoint.POST("/match", CheckCPEs)
 
 	log.Println("Vuln-Info-API: Hello :)")
 

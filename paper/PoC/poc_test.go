@@ -96,6 +96,9 @@ var feed gofeed.Feed = gofeed.Feed{
 
 var vendorCRUD = db.VendorCRUD{}
 
+/*
+Please use the empty test DB from test/docker-compose.test.yml
+*/
 func TestPoC(t *testing.T) {
 
 	test.SetUp()
@@ -115,7 +118,7 @@ func TestPoC(t *testing.T) {
 
 	wg.Done()
 
-	time.Sleep(20 * time.Second)
+	time.Sleep(10 * time.Second)
 
 	_, err := vendorCRUD.GetByName("fail=0")
 	if err != nil {
@@ -126,7 +129,7 @@ func TestPoC(t *testing.T) {
 
 func runScript(wg *sync.WaitGroup) bool {
 	defer wg.Done()
-	err := godotenv.Load("../.env")
+	err := godotenv.Load("../../.env")
 	if err != nil {
 		log.Panicln(err.Error())
 	}

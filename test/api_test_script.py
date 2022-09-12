@@ -158,7 +158,7 @@ r = POST(component, path)
 assertEqual("CPE in wrong format not accepted", r, r.status_code == 400)
 
 p("Refresh RSS Feed")
-r = GET("config/rss")
+r = POST("", "config/rss")
 assertEqual("RSS up to date", r, r.status_code == 200)
 
 p("1. Get vulnerable cve:")
@@ -218,7 +218,7 @@ compId2 = r.json().get("id")
 r = DELETE(path + "/" + str(compId2))
 assertEqual("Delete second component", r, r.status_code == 200)
 
-r = POST("", path + "/" + str(compId) + "/subscribe?user=gibteshoffentlichnicht")
+r = POST(" ", path + "/" + str(compId) + "/subscribe?user=gibteshoffentlichnicht")
 assertEqual("subscribe non existing vendor to component", r, r.status_code == 400)
 
 r = POST(" ", path + "/" + str(compId) + "/subscribe?user=" + userName)
@@ -227,7 +227,7 @@ assertEqual("subscribe existing user to component", r, r.status_code == 200)
 r = GET(path + "/" + str(compId) + "/vulnerabilities")
 assertEqual("Get vulnerabilities for component", r, r.status_code == 200)
 
-r = GET("config/match?from=0&to=-300")
+r = POST("","config/match?from=0&to=-300")
 assertEqual("run cpe match", r, r.status_code == 200)
 
 r = GET(path + "/" + str(compId) + "/vulnerabilities")

@@ -12,7 +12,7 @@ var dsn = MysqlUser + ":" + MysqlPassword + "@tcp(" + MysqlIp + ":" + MysqlPort 
 
 func SetUp() {
 
-	database.ConnectDB(dsn, false)
+	database.ConnectDB(dsn, true)
 	println("set up test DB")
 }
 

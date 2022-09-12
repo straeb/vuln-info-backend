@@ -7,8 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+	"os"
 	"vuln-info-backend/service/auth"
 )
+
+var authLog = log.New(os.Stdout, "[USER] ", log.Ldate|log.Ltime)
 
 func AuthorizeJWT() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -17,7 +20,7 @@ func AuthorizeJWT() gin.HandlerFunc {
 			if token.Valid {
 				claims := token.Claims.(jwt.MapClaims)
 				usr := claims["name"].(string)
-				log.Println(usr)
+				authLog.Println(usr + ":")
 			} else {
 				fmt.Println(err)
 				c.AbortWithStatus(http.StatusUnauthorized)

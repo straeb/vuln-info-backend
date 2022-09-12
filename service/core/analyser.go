@@ -51,10 +51,13 @@ func MatchCPEs(from int, to int) {
 
 				*/
 				if componentObj.Id != 0 {
-					matchCount++
 					vulnerability.AppendCPE(&vuln, cpe)
-					component.AppendVulnerability(componentObj, vuln)
-					matchLog.Printf("Vulnerability %v assigned to %v:%v\n", vuln.CVEId, componentObj.Name, componentObj.Version)
+					err := component.AppendVulnerability(componentObj, vuln)
+					if err == nil {
+						//Otherwise the component is already flagged
+						matchCount++
+						matchLog.Printf("Vulnerability %v assigned to %v:%v\n", vuln.CVEId, componentObj.Name, componentObj.Version)
+					}
 				} else {
 				}
 			}

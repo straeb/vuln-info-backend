@@ -9,19 +9,23 @@ The basic workflow is described in the following, but it's recommended to use an
 ## Basic Workflow
 
 ### 1. Create an account
-Create an Account an sign up at `/auth/signup`
+Create an Account and sign up at `/auth/signup`
 
 ### 2. Login
 Login with your freshly created account under `auth/login`
-You will receive a token to authorize your further requests. Use it in the request header like this:  `Authorization: Bearer <token>`
+You will receive a token to authorize your further requests. Use it in the request header like   `Authorization: Bearer <token>`
 
 ### 4. Search or Add your components
 Search for exiting components via `/components/search` or create new ones:
 1. Search for stored Vendors at `/vendors/search` or create them at `vendors`.
-2. Create new components at `/components` with the previous given `vendorID`. Please make sure to set a proper CPE. It's recommended to get them form the official [CPE Dictionary](https://nvd.nist.gov/products/cpe/search))
+2. Create new components at `/components` with the previous given `vendorID`. Please make sure to set a proper CPE. It's recommended to get them form the official [CPE Dictionary](https://nvd.nist.gov/products/cpe/search)
 
 ### 5. Subscribe to your components
 Subscribe to the components you like to monitor via  `/components/{id}/subscribe?user=example@domain.com`
 
 ### 6. Check for notifications
 Regularly check for notifications that address you and your components at `/notifications?for=example@domain.com` or browse all stored notifications at `/notifications`
+
+## Further Work
+- **Frontend**: Development of a GUI is planed, to make this more useful.
+- **Authorization**: Authorization is pretty basic by now. It's mainly used to provide information for particular users. However, switching to a more complex authorization method not useful until a GUI is given.

@@ -1,0 +1,202 @@
+Stichprobengröße:
+
+n = [z2 * p * (1 - p) / e2] / [1 + (z2 * p * (1 - p) / (e2 * N))]
+
+z = 1.645 für ein Konfidenzniveau von 90%
+
+z = 1.645
+p = 0.5
+N = 659
+e = 0.09
+
+n = [1.6452 * 0.5 * (1 - 0.5) / 0.092] / [1 + (1.6452 * 0.5 * (1 - 0.5) / (0.092 * 659))]
+
+n = 83.5193 / 1.1267 = 74.125
+
+n ≈ 75
+
+Auswertungsergebnisse:
+
+ 0% 33.33333% 66.66667%      100%
+ 0.0      10.3     103.0     251.9
+
+
+     Diff   tert CVE
+1    0.0    Low CVE-2021-3698
+2    0.0    Low CVE-2022-24097
+3    0.0    Low CVE-2022-24960
+4    3.7    Low CVE-2021-4102
+5    5.1    Low CVE-2022-21817
+6    5.2    Low CVE-2022-21326
+7    5.2    Low CVE-2022-21307
+8    5.3    Low CVE-2022-21357
+9    6.0    Low CVE-2022-22632
+10   6.1    Low CVE-2022-24528
+11   6.1    Low CVE-2022-22310
+12   6.3    Low CVE-2022-0470
+13   6.8    Low CVE-2021-4101
+14   6.8    Low CVE-2022-0016
+15   6.9    Low CVE-2022-24493
+16   7.0    Low CVE-2020-25717
+17   7.1    Low CVE-2022-0297
+18   7.1    Low CVE-2022-1280
+19   7.2    Low CVE-2021-45980
+20   7.7    Low CVE-2022-0462
+21   9.7    Low CVE-2021-44702
+22  10.0    Low CVE-2022-26918
+23  10.3    Low CVE-2021-3948
+24  10.3    Low CVE-2021-4093
+25  10.8 Medium CVE-2022-0310
+26  12.9 Medium CVE-2021-20320
+27  27.4 Medium CVE-2022-21682
+28  40.9 Medium CVE-2022-22008
+29  48.5 Medium CVE-2022-0290
+30  48.8 Medium CVE-2022-0534
+31  53.2 Medium CVE-2022-23648
+32  65.8 Medium CVE-2022-1353
+33  66.1 Medium CVE-2022-0108
+34  66.1 Medium CVE-2022-0103
+35  69.0 Medium CVE-2022-0435
+36  73.7 Medium CVE-2021-4202
+37  75.0 Medium CVE-2022-23294
+38  76.1 Medium CVE-2021-38919
+39  81.8 Medium CVE-2021-3623
+40  84.1 Medium CVE-2022-0487
+41  85.3 Medium CVE-2022-24754
+42  89.7 Medium CVE-2022-21254
+43  92.0 Medium CVE-2022-0492
+44  95.9 Medium CVE-2021-3733
+45 102.6 Medium CVE-2022-0854
+46 103.0 Medium CVE-2022-22002
+47 103.0 Medium CVE-2022-22717
+48 108.0   High CVE-2022-29582
+49 115.2   High CVE-2022-26358
+50 116.3   High CVE-2022-25313
+51 117.7   High CVE-2022-0500
+52 128.5   High CVE-2021-4206
+53 131.8   High CVE-2022-21834
+54 131.8   High CVE-2022-21897
+55 131.8   High CVE-2022-21959
+56 132.0   High CVE-2022-21427
+57 132.4   High CVE-2022-0797
+58 132.4   High CVE-2022-0790
+59 141.5   High CVE-2021-42778
+60 151.0   High CVE-2021-44533
+61 151.0   High CVE-2021-44532
+62 151.0   High CVE-2021-44531
+63 155.3   High CVE-2022-21824
+64 167.1   High CVE-2022-0778
+65 168.5   High CVE-2018-25032
+66 175.1   High CVE-2022-22590
+67 184.9   High CVE-2022-0714
+68 205.8   High CVE-2022-23034
+69 215.5   High CVE-2021-44716
+70 251.9   High CVE-2021-41817
+
+
+Quellen:
+Zufällig ausgewählte CVEs der folgenden Produkte die im Zeitraum vom 01.01. - 30.04.2022 veröffenlticht wurden.
+
+Windows 10 cpe:2.3:o:microsoft:windows_10:-:*:*:*:*:*:x64:* 01.01. - 30.04.2022:
+https://nvd.nist.gov/vuln/search/results?isCpeNameSearch=true&pub_start_date=01%2F01%2F2022&pub_end_date=04%2F30%2F2022&query=cpe%3A2.3%3Ao%3Amicrosoft%3Awindows_10%3A-%3A*%3A*%3A*%3A*%3A*%3Ax64%3A*&results_type=overview&orderBy=publishDate&form_type=Advanced&search_type=all&orderDir=asc&startIndex=100
+CVE-2022-21834
+CVE-2022-22002
+CVE-2022-22717
+CVE-2022-24493
+CVE-2022-21897
+CVE-2022-26918
+CVE-2022-23294
+CVE-2022-21959
+CVE-2022-22008
+CVE-2022-24528
+
+RHEL 8 cpe:2.3:o:redhat:enterprise_linux:8.0:*:*:*:*:*:*:* 01.01. - 30.04.2022:
+https://nvd.nist.gov/vuln/search/results?form_type=Advanced&results_type=overview&query=cpe%3A2.3%3Ao%3Aredhat%3Aenterprise_linux%3A8.0%3A*%3A*%3A*%3A*%3A*%3A*%3A*&search_type=all&isCpeNameSearch=true&pub_start_date=01%2F01%2F2022&pub_end_date=04%2F30%2F2022
+CVE-2022-0435
+CVE-2021-42778
+CVE-2021-3733
+CVE-2021-3698
+CVE-2021-3948
+CVE-2021-3623
+CVE-2022-21682
+CVE-2021-41817
+CVE-2020-25717
+CVE-2021-4093
+CVE-2021-3698
+CVE-2021-45417
+CVE-2021-3631
+
+
+Google Chrome cpe:2.3:a:google:chrome:-:*:*:*:*:*:*:*  01.01. - 30.04.2022:
+https://nvd.nist.gov/vuln/search/results?form_type=Advanced&results_type=overview&query=cpe%3A2.3%3Aa%3Agoogle%3Achrome%3A-%3A*%3A*%3A*%3A*%3A*%3A*%3A*&search_type=all&isCpeNameSearch=true&pub_start_date=01%2F01%2F2022&pub_end_date=04%2F30%2F2022
+CVE-2022-0797
+CVE-2022-0790
+CVE-2022-0462
+CVE-2022-0470
+CVE-2022-0310
+CVE-2022-0297
+CVE-2022-0290
+CVE-2022-0108
+CVE-2021-4102
+CVE-2022-0103
+CVE-2021-4101
+	
+Node.js   cpe:2.3:a:nodejs:node.js:*:*:*:*:-:*:*:* 01.01. - 30.04.2022:
+https://nvd.nist.gov/vuln/search/results?form_type=Advanced&results_type=overview&query=cpe%3A2.3%3Aa%3Anodejs%3Anode.js%3A*%3A*%3A*%3A*%3A-%3A*%3A*%3A*&search_type=all&isCpeNameSearch=true&pub_start_date=01%2F01%2F2022&pub_end_date=04%2F30%2F2022
+CVE-2022-0778
+CVE-2022-21824
+CVE-2021-44533
+CVE-2021-44532
+CVE-2021-44531
+
+mysql  cpe:2.3:a:oracle:mysql:*:*:*:*:*:*:*:* 01.01. - 30.04.2022:
+https://nvd.nist.gov/vuln/search/results?form_type=Advanced&results_type=overview&query=cpe%3A2.3%3Aa%3Aoracle%3Amysql%3A*%3A*%3A*%3A*%3A*%3A*%3A*%3A*&search_type=all&isCpeNameSearch=true&pub_start_date=01%2F01%2F2022&pub_end_date=04%2F30%2F2022
+CVE-2022-21427
+CVE-2022-21357
+CVE-2022-21326
+CVE-2022-21307
+CVE-2022-21254
+
+Debian Linux cpe:2.3:o:debian:debian_linux:*:*:*:*:*:*:*:* 01.01. - 30.04.2022:
+https://nvd.nist.gov/vuln/search/results?form_type=Advanced&results_type=overview&query=cpe%3A2.3%3Ao%3Adebian%3Adebian_linux%3A*%3A*%3A*%3A*%3A*%3A*%3A*%3A*&search_type=all&isCpeNameSearch=true&pub_start_date=01%2F01%2F2022&pub_end_date=04%2F30%2F2022
+CVE-2021-4206
+CVE-2022-26358
+CVE-2022-24754
+CVE-2022-23648
+CVE-2022-0714
+CVE-2022-25313
+CVE-2022-0534
+CVE-2022-0487
+CVE-2022-23034
+CVE-2021-44716
+
+Apple macOS cpe:2.3:o:apple:macos:*:*:*:*:*:*:*:* 01.01. - 30.04.2022
+https://nvd.nist.gov/vuln/search/results?isCpeNameSearch=true&pub_start_date=01%2F01%2F2022&pub_end_date=04%2F30%2F2022&query=cpe%3A2.3%3Ao%3Aapple%3Amacos%3A*%3A*%3A*%3A*%3A*%3A*%3A*%3A*&results_type=overview&form_type=Advanced&search_type=all&startIndex=60
+CVE-2018-25032
+CVE-2022-22632
+CVE-2022-22590
+CVE-2021-42526
+CVE-2022-24097
+CVE-2022-24960
+CVE-2022-0016
+CVE-2021-44702
+CVE-2021-45980
+CVE-2021-40781
+
+Linux kernel cpe:2.3:o:linux:linux_kernel:*:*:*:*:*:*:*:* 01.01. - 30.04.2022
+CVE-2022-29582
+CVE-2022-1353
+CVE-2022-1280
+CVE-2021-4202
+CVE-2022-0492
+CVE-2021-20320
+CVE-2022-21817
+CVE-2022-22310
+CVE-2021-38919
+CVE-2022-0500
+CVE-2022-0854
+	
+
+
+	
+

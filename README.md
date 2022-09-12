@@ -6,7 +6,7 @@ On a regular basis, all saved notifications that came with CVE information will 
 ## Installation
 ### 1. Provide all necessary information in a `.env` file
 
-Best is to use the `CHANGEME.env` template. In there are are 3 blocks of cron-configs. These control the periodical matching between stored components and gathered vulnerability information. Newly provided information in CVE records will decrease over time, so it's not necessary to update old entries every day. If only two or less jobs are needed, set the others to `'0 0 31 2 *'` which is the 31th of February and will never be executed.
+Best is to use the `CHANGEME.env` template. In there are 3 blocks of cron-configs. These control the periodical matching between stored components and gathered vulnerability information. Newly provided information in CVE records will decrease over time, so it's not necessary to update old entries every day. If only two or fewer jobs are needed, set the others to `'0 0 31 2 *'` which is the 31st of February and will never be executed.
 ````yml
 CRON_STRING_n='* 3 * * *' # -> UNIX like time schedule:  = every day at 03:00AM
 FROM_DAYS_n='0' # -> From today...
@@ -23,7 +23,7 @@ Once both services are up and running the endpoints of the REST-API are reachabl
 ## Basic Workflow
 
 ### 1. Create an account
-Create an Account an sign up at `/auth/signup`
+Create an Account and sign up at `/auth/signup`
 
 ### 2. Login
 Login with your freshly created account under `auth/login`
@@ -32,7 +32,7 @@ You will receive a token to authorize your further requests. Use it in the reque
 ### 4. Search or Add your components
 Search for exiting components via `/components/search` or create new ones:
 1. Search for stored Vendors at `/vendors/search` or create them at `vendors`.
-2. Create new components at `/components` with the previous given `vendorID`. Please make sure to set a proper CPE. It's recommended to get them form the official [CPE Dictionary](https://nvd.nist.gov/products/cpe/search))
+2. Create new components at `/components` with the previous given `vendorID`. Please make sure to set a proper CPE. It's recommended to get them form the official [CPE Dictionary](https://nvd.nist.gov/products/cpe/search)
 
 ### 5. Subscribe to your components
 Subscribe to the components you like to monitor via  `/components/{id}/subscribe?user=example@domain.com`

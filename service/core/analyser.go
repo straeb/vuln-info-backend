@@ -9,7 +9,7 @@ import (
 
 var vulnerability crud.VulnerabilityCRUD
 var component crud.ComponentCRUD
-var matchLog = log.New(os.Stderr, "[ANALYSER] ", log.Ldate|log.Ltime)
+var matchLog = log.New(os.Stdout, "[ANALYSER] ", log.Ldate|log.Ltime)
 
 func MatchCPEs(from int, to int) {
 

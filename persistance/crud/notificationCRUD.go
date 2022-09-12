@@ -16,6 +16,8 @@ type NotificationCRUD struct{}
 
 var thisNotification NotificationCRUD
 
+var rssLog = log.New(os.Stdout, "[RSS] ", log.Ldate|log.Ltime)
+
 func (NotificationCRUD) GetAll(params *models.Notification) ([]models.Notification, error) {
 	var notifications []models.Notification
 
@@ -173,7 +175,6 @@ func (NotificationCRUD) GetById(id string) (*models.Notification, error) {
 }
 
 func (NotificationCRUD) Create(input models.CreateNotificationInput) (*models.Notification, error) {
-	var rssLog = log.New(os.Stderr, "[RSS] ", log.Ldate|log.Ltime)
 
 	notification := input.TurnToNotification()
 

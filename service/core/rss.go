@@ -18,7 +18,7 @@ var notification crud.NotificationCRUD
 
 const FEED_CATEGORY_VULN = "Typ/Schwachstelle"
 
-var rssLog = log.New(os.Stderr, "[RSS] ", log.Ldate|log.Ltime)
+var rssLog = log.New(os.Stdout, "[RSS] ", log.Ldate|log.Ltime)
 
 /*
 CheckFeed fetches the feed URL and calls the Parser,

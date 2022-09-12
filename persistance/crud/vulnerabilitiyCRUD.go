@@ -3,7 +3,6 @@ package crud
 import (
 	"errors"
 	"gorm.io/gorm"
-	"log"
 	"strconv"
 	"strings"
 	"time"
@@ -179,8 +178,6 @@ func (VulnerabilityCRUD) Update(id string, input models.UpdateVulnerabilityInput
 		Preload("CPEs").Find(&vuln).Error; err != nil {
 		return nil, db.Errs(err)
 	}
-
-	log.Println("Updated", vuln.CVEId)
 
 	return vuln, nil
 

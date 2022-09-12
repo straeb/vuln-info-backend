@@ -6,11 +6,14 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"time"
 	"vuln-info-backend/models"
 )
 
 const BASE_URL = "https://cve.circl.lu/api/cve/"
+
+var callErr = log.New(os.Stderr, "[FETCH] ", log.Ldate|log.Ltime)
 
 func callCircl(cve string) *models.Circl {
 
@@ -23,7 +26,7 @@ func callCircl(cve string) *models.Circl {
 		BASE_URL+cve,
 		nil)
 	if err != nil {
-		log.Printf(err.Error())
+		callErr.Println(err.Error())
 		return nil
 
 	}
@@ -34,21 +37,21 @@ func callCircl(cve string) *models.Circl {
 	response, err := client.Do(req)
 	//log.Printf("Fetch: %v\n", BASE_URL+cve)
 	if err != nil {
-		log.Printf(err.Error())
+		callErr.Println(err.Error())
 		return nil
 	}
 
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-			log.Printf(err.Error())
+			callErr.Println(err.Error())
 		}
 	}(response.Body)
 
 	//
 	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
-		log.Printf(err.Error())
+		callErr.Println(err.Error())
 		return nil
 	}
 
@@ -56,7 +59,7 @@ func callCircl(cve string) *models.Circl {
 	var respObj models.Circl
 	err = json.Unmarshal(body, &respObj)
 	if err != nil {
-		log.Printf(err.Error())
+		callErr.Println(err.Error())
 		return nil
 	}
 	return &respObj

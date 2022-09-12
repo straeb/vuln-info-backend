@@ -16,7 +16,7 @@ type ComponentCRUD struct{}
 
 var thisComponent ComponentCRUD
 
-var compLog = log.New(os.Stderr, "[COMPONENT] ", log.Ldate|log.Ltime)
+var compLog = log.New(os.Stdout, "[COMPONENT] ", log.Ldate|log.Ltime)
 
 func (ComponentCRUD) GetAll(params *models.Component) ([]models.Component, error) {
 	var components []models.Component

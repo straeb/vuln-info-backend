@@ -20,7 +20,7 @@ import (
 func main() {
 
 	//Switch between Prod (Docker) & Debug
-	var DEBUG bool = true
+	var DEBUG bool = false
 
 	if DEBUG {
 		godotenv.Load(".env")

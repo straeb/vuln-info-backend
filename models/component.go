@@ -6,7 +6,7 @@ type Component struct {
 	Id              uint            `json:"id" gorm:"primary_key"`
 	Name            string          `json:"name" form:"name"`
 	Version         string          `json:"version" form:"version"`
-	Cpe             string          `json:"cpe" form:"cpe" gorm:"unique"`
+	Cpe             string          `json:"cpe" form:"cpe" gorm:"uniqueIndex;size:256"`
 	VendorId        uint            `json:"-"`
 	Vendor          Vendor          `json:"vendor" gorm:"ForeignKey:VendorId" form:"vendor"`
 	Owners          []User          `json:"owners" gorm:"many2many:component_owners;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`

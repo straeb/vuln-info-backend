@@ -101,5 +101,3 @@ func errLogger(err error) {
 		log.Printf(err.Error())
 	}
 }
-
-

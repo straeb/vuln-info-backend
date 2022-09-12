@@ -14,7 +14,7 @@ type UserCRUD struct{}
 
 var thisUser UserCRUD
 
-var userLog = log.New(os.Stderr, "[USER] ", log.Ldate|log.Ltime)
+var userLog = log.New(os.Stdout, "[USER] ", log.Ldate|log.Ltime)
 
 func (UserCRUD) GetAll() []models.User {
 	var users []models.User

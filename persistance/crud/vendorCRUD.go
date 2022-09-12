@@ -14,7 +14,7 @@ type VendorCRUD struct{}
 
 var thisVendor VendorCRUD
 
-var vedorLog = log.New(os.Stderr, "[VENDOR] ", log.Ldate|log.Ltime)
+var vedorLog = log.New(os.Stdout, "[VENDOR] ", log.Ldate|log.Ltime)
 
 func (VendorCRUD) GetAll(params *models.Vendor) ([]models.Vendor, error) {
 	var vendors []models.Vendor

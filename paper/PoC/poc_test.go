@@ -60,7 +60,7 @@ const description3 = `
 <div class="scoring">CVSS Temporal:</div> 4.0 <br>
 
 <b>Zusammenfassung der Auswirkung:</b><br>
-
+ich habeCVE-2022-21908 versteckt
 </div>`
 
 var yesterday = time.Now().AddDate(0, 0, -1)
@@ -105,7 +105,7 @@ func TestPoC(t *testing.T) {
 	defer test.TearDown()
 
 	output := core.FindValuableEntries(feed)
-	expected := [3]int{3, 3, 5}
+	expected := [3]int{3, 3, 6}
 	if output != expected {
 		t.Error("Test Failed:  expected {} , recieved: {}", expected, output)
 	}

@@ -227,6 +227,7 @@ log4J= "CVE-2021-44228"
 freerdp1 = "CVE-2021-41159"
 freerdp2 = "CVE-2021-41160"
 windows = "CVE-2022-21907"
+windows2 = "CVE-2022-21908"
 
 r = GET(path + "/1/vulnerabilities", headers2)
 assertEqual("Get vulnerabilities for component 1: Log4j 2.11.2", r, r.status_code == 200)
@@ -234,13 +235,15 @@ assertEqual("Contains " + log4J, r, str(r.content).__contains__(log4J))
 assertEqual("Not contains " + freerdp1, r, not str(r.content).__contains__(freerdp1))
 assertEqual("Not contains " + freerdp2, r, not str(r.content).__contains__(freerdp2))
 assertEqual("Not contains " + windows, r, not str(r.content).__contains__(windows))
+assertEqual("Not contains " + windows2, r, not str(r.content).__contains__(windows2))
 
 r = GET(path + "/2/vulnerabilities", headers1)
 assertEqual("Get vulnerabilities for component 2: FreeRDP 2.1.2", r, r.status_code == 200)
 assertEqual("Not contains " + log4J, r, not str(r.content).__contains__(log4J))
 assertEqual("Contains " + freerdp1, r, str(r.content).__contains__(freerdp1))
 assertEqual("Contains " + freerdp2, r, str(r.content).__contains__(freerdp2))
-assertEqual("Not ontains " + windows, r, not str(r.content).__contains__(windows))
+assertEqual("Not contains " + windows, r, not str(r.content).__contains__(windows))
+assertEqual("Not contains " + windows2, r, not str(r.content).__contains__(windows2))
 
 r = GET(path + "/3/vulnerabilities", headers2)
 assertEqual("Get vulnerabilities for component 3: Windows 11", r, r.status_code == 200)
@@ -248,6 +251,7 @@ assertEqual("Not contains " + log4J, r, not str(r.content).__contains__(log4J))
 assertEqual("Not contains " + freerdp1, r, not str(r.content).__contains__(freerdp1))
 assertEqual("Not contains " + freerdp2, r, not str(r.content).__contains__(freerdp2))
 assertEqual("Contains " + windows, r, str(r.content).__contains__(windows))
+assertEqual("Contains " + windows2, r, str(r.content).__contains__(windows2))
 
 r = GET(path + "/4/vulnerabilities", headers1)
 assertEqual("Get vulnerabilities for component 4: Fedora 34", r, r.status_code == 200)
@@ -255,6 +259,7 @@ assertEqual("Contains " + log4J, r, str(r.content).__contains__(log4J))
 assertEqual("Contains " + freerdp1, r, str(r.content).__contains__(freerdp1))
 assertEqual("Contains " + freerdp2, r, str(r.content).__contains__(freerdp2))
 assertEqual("Not Contains " + windows, r, not str(r.content).__contains__(windows))
+assertEqual("Not Contains " + windows2, r, not str(r.content).__contains__(windows2))
 
 r = GET(path + "/5/vulnerabilities", headers2)
 assertEqual("Get vulnerabilities for component 5: Fedora 36", r, r.status_code == 200)
@@ -262,6 +267,7 @@ assertEqual("Not Contains " + log4J, r, not str(r.content).__contains__(log4J))
 assertEqual("Not Contains " + freerdp1, r, not str(r.content).__contains__(freerdp1))
 assertEqual("Not contains " + freerdp2, r, not str(r.content).__contains__(freerdp2))
 assertEqual("Not contains " + windows, r, not str(r.content).__contains__(windows))
+assertEqual("Not contains " + windows2, r, not str(r.content).__contains__(windows2))
 
 
 # Notifications
@@ -275,6 +281,7 @@ assertEqual("Contains " + log4J, r, str(r.content).__contains__(log4J))
 assertEqual("Contains " + freerdp1, r, str(r.content).__contains__(freerdp1))
 assertEqual("Contains " + freerdp2, r, str(r.content).__contains__(freerdp2))
 assertEqual("Contains " + windows, r, str(r.content).__contains__(windows))
+assertEqual("Contains " + windows2, r, str(r.content).__contains__(windows2))
 
 r = GET(path + "?for=" + userName2, headers2)
 assertEqual("Get Notifications for user2", r, r.status_code == 200)
@@ -282,6 +289,7 @@ assertEqual("Contains " + log4J, r, str(r.content).__contains__(log4J))
 assertEqual("Contains " + freerdp1, r, str(r.content).__contains__(freerdp1))
 assertEqual("Contains " + freerdp2, r, str(r.content).__contains__(freerdp2))
 assertEqual("Not Contains " + windows, r, not str(r.content).__contains__(windows))
+assertEqual("Not Contains " + windows2, r, not str(r.content).__contains__(windows2))
 
 
 r = GET(path + "?cve_id=" + freerdp1, headers1)
@@ -308,6 +316,7 @@ assertEqual("Get Notifications for " + windows, r, r.status_code == 200)
 title1 = r.json()[0].get("title")
 expect1 = "Windows CVE-2022-21907"
 assertEqual("Notification 1 Title is 'Windows CVE-2022-21907' ", r, title1 == expect1)
+
 
 
 resultVendor = {

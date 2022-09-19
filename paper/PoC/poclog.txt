@@ -1,102 +1,104 @@
 set up test DB
-[RSS] 2022/09/12 21:24:13 Created notification Id: 1: "FreeRDP"
-[RSS] 2022/09/12 21:24:13 Notification Id: 1 covers: 
-[RSS] 2022/09/12 21:24:13 	 - CVE-2021-41159
-[RSS] 2022/09/12 21:24:13 	 - CVE-2021-41160
-[RSS] 2022/09/12 21:24:17 Created notification Id: 2: "FreeRDP + Log4j"
-[RSS] 2022/09/12 21:24:17 Notification Id: 2 covers: 
-[RSS] 2022/09/12 21:24:17 	 - CVE-2021-44228
-[RSS] 2022/09/12 21:24:17 	 - CVE-2021-41160
-[RSS] 2022/09/12 21:24:17 Created notification Id: 3: "Windows CVE-2022-21907"
-[RSS] 2022/09/12 21:24:17 Notification Id: 3 covers: 
-[RSS] 2022/09/12 21:24:17 	 - CVE-2022-21907
-[RSS] 2022/09/12 21:24:17 Checked 3 new entries in: PoC Feed: Found 3 valuable entries, containing 5 CVEs.
-2022/09/12 21:24:17 Vuln-Info-API: Hello :)
-[USER] 2022/09/12 21:24:17 Created user avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com
-[GIN] 2022/09/12 - 21:24:17 | 200 |   29.388817ms |             ::1 | POST     "/api/v1/auth/signup"
-[USER] 2022/09/12 21:24:17 Created user mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com
-[GIN] 2022/09/12 - 21:24:17 | 200 |   24.957168ms |             ::1 | POST     "/api/v1/auth/signup"
-[GIN] 2022/09/12 - 21:24:17 | 200 |   22.695639ms |             ::1 | POST     "/api/v1/auth/login"
-[GIN] 2022/09/12 - 21:24:17 | 200 |   23.238044ms |             ::1 | POST     "/api/v1/auth/login"
-[USER] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[VENDOR] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com created vendor: Apache Software Foundation
-[GIN] 2022/09/12 - 21:24:17 | 200 |    9.075022ms |             ::1 | POST     "/api/v1/vendors"
-[USER] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[VENDOR] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com created vendor: Free RDP
-[GIN] 2022/09/12 - 21:24:17 | 200 |    9.133535ms |             ::1 | POST     "/api/v1/vendors"
-[USER] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[VENDOR] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com created vendor: Microsoft
-[GIN] 2022/09/12 - 21:24:17 | 200 |    7.508588ms |             ::1 | POST     "/api/v1/vendors"
-[USER] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[VENDOR] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com created vendor: Fedora Project
-[GIN] 2022/09/12 - 21:24:17 | 200 |    6.965539ms |             ::1 | POST     "/api/v1/vendors"
-[USER] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[COMPONENT] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com created componetent recod Log4j: 2.11.2
-[GIN] 2022/09/12 - 21:24:17 | 200 |   12.042492ms |             ::1 | POST     "/api/v1/components"
-[USER] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[COMPONENT] 2022/09/12 21:24:17 User avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com subscribed to Log4j:2.11.2
-[GIN] 2022/09/12 - 21:24:17 | 200 |   11.341718ms |             ::1 | POST     "/api/v1/components/1/subscribe?user=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com"
-[USER] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[COMPONENT] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com created componetent recod FreeRDP: 2.1.2
-[GIN] 2022/09/12 - 21:24:17 | 200 |   10.902811ms |             ::1 | POST     "/api/v1/components"
-[USER] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[COMPONENT] 2022/09/12 21:24:17 User avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com subscribed to FreeRDP:2.1.2
-[GIN] 2022/09/12 - 21:24:17 | 200 |    9.512558ms |             ::1 | POST     "/api/v1/components/2/subscribe?user=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com"
-[USER] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[COMPONENT] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com created componetent recod Windows: 11
-[GIN] 2022/09/12 - 21:24:17 | 200 |   12.427691ms |             ::1 | POST     "/api/v1/components"
-[USER] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[COMPONENT] 2022/09/12 21:24:17 User avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com subscribed to Windows:11
-[GIN] 2022/09/12 - 21:24:17 | 200 |   11.385197ms |             ::1 | POST     "/api/v1/components/3/subscribe?user=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com"
-[USER] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[COMPONENT] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com created componetent recod Fedora: 35
-[GIN] 2022/09/12 - 21:24:17 | 200 |    8.778845ms |             ::1 | POST     "/api/v1/components"
-[USER] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[COMPONENT] 2022/09/12 21:24:17 User avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com subscribed to Fedora:35
-[GIN] 2022/09/12 - 21:24:17 | 200 |    11.16103ms |             ::1 | POST     "/api/v1/components/4/subscribe?user=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com"
-[USER] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[COMPONENT] 2022/09/12 21:24:17 User mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com subscribed to Fedora:35
-[GIN] 2022/09/12 - 21:24:17 | 200 |    9.485484ms |             ::1 | POST     "/api/v1/components/4/subscribe?user=mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com"
-[USER] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[COMPONENT] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com created componetent recod Fedora: 36
-[GIN] 2022/09/12 - 21:24:17 | 200 |   12.228876ms |             ::1 | POST     "/api/v1/components"
-[USER] 2022/09/12 21:24:17 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[COMPONENT] 2022/09/12 21:24:17 User mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com subscribed to Fedora:36
-[GIN] 2022/09/12 - 21:24:17 | 200 |     11.0108ms |             ::1 | POST     "/api/v1/components/5/subscribe?user=mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com"
-[USER] 2022/09/12 21:24:17 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[ANALYSER] 2022/09/12 21:24:17 Checking Vulnerabilities form the last 0 to -300 days:
-[ANALYSER] 2022/09/12 21:24:17 Vulnerability CVE-2021-41159 assigned to FreeRDP:2.1.2
-[ANALYSER] 2022/09/12 21:24:17 Vulnerability CVE-2021-41159 assigned to Fedora:35
-[ANALYSER] 2022/09/12 21:24:17 Vulnerability CVE-2021-41160 assigned to FreeRDP:2.1.2
-[ANALYSER] 2022/09/12 21:24:17 Vulnerability CVE-2021-41160 assigned to Fedora:35
-[ANALYSER] 2022/09/12 21:24:19 Vulnerability CVE-2021-44228 assigned to Log4j:2.11.2
-[ANALYSER] 2022/09/12 21:24:19 Vulnerability CVE-2021-44228 assigned to Fedora:35
-[ANALYSER] 2022/09/12 21:24:20 Vulnerability CVE-2022-21907 assigned to Windows:11
-[ANALYSER] 2022/09/12 21:24:20 Checked 4 vulnerabilities. Found 7 vulnerable componentes.
-[GIN] 2022/09/12 - 21:24:20 | 200 |  2.693757341s |             ::1 | POST     "/api/v1/config/match?from=0&to=-300"
-[USER] 2022/09/12 21:24:20 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |     849.176µs |             ::1 | GET      "/api/v1/components/1/vulnerabilities"
-[USER] 2022/09/12 21:24:20 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |     808.977µs |             ::1 | GET      "/api/v1/components/2/vulnerabilities"
-[USER] 2022/09/12 21:24:20 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |     843.781µs |             ::1 | GET      "/api/v1/components/3/vulnerabilities"
-[USER] 2022/09/12 21:24:20 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |     835.564µs |             ::1 | GET      "/api/v1/components/4/vulnerabilities"
-[USER] 2022/09/12 21:24:20 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |     784.617µs |             ::1 | GET      "/api/v1/components/5/vulnerabilities"
-[USER] 2022/09/12 21:24:20 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |    2.903207ms |             ::1 | GET      "/api/v1/notifications?for=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com"
-[USER] 2022/09/12 21:24:20 mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |    3.016479ms |             ::1 | GET      "/api/v1/notifications?for=mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com"
-[USER] 2022/09/12 21:24:20 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |    1.877668ms |             ::1 | GET      "/api/v1/notifications?cve_id=CVE-2021-41159"
-[USER] 2022/09/12 21:24:20 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |    1.820677ms |             ::1 | GET      "/api/v1/notifications?cve_id=CVE-2021-41160"
-[USER] 2022/09/12 21:24:20 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[GIN] 2022/09/12 - 21:24:20 | 200 |    1.740029ms |             ::1 | GET      "/api/v1/notifications?cve_id=CVE-2022-21907"
-[USER] 2022/09/12 21:24:20 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com:
-[VENDOR] 2022/09/12 21:24:20 avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com created vendor: fail=0
-[GIN] 2022/09/12 - 21:24:20 | 200 |    7.649897ms |             ::1 | POST     "/api/v1/vendors"
+[RSS] 2022/09/13 18:52:27 Created notification Id: 1: "FreeRDP"
+[RSS] 2022/09/13 18:52:27 Notification Id: 1 covers: 
+[RSS] 2022/09/13 18:52:27 	 - CVE-2021-41159
+[RSS] 2022/09/13 18:52:27 	 - CVE-2021-41160
+[RSS] 2022/09/13 18:52:29 Created notification Id: 2: "FreeRDP + Log4j"
+[RSS] 2022/09/13 18:52:29 Notification Id: 2 covers: 
+[RSS] 2022/09/13 18:52:29 	 - CVE-2021-44228
+[RSS] 2022/09/13 18:52:29 	 - CVE-2021-41160
+[RSS] 2022/09/13 18:52:29 Created notification Id: 3: "Windows CVE-2022-21907"
+[RSS] 2022/09/13 18:52:29 Notification Id: 3 covers: 
+[RSS] 2022/09/13 18:52:29 	 - CVE-2022-21907
+[RSS] 2022/09/13 18:52:29 	 - CVE-2022-21908
+[RSS] 2022/09/13 18:52:29 Checked 3 new entries in: PoC Feed: Found 3 valuable entries, containing 6 CVEs.
+2022/09/13 18:52:29 Vuln-Info-API: Hello :)
+[USER] 2022/09/13 18:52:29 Created user fdekxutwiceovoadymol@myfwksibpekywpivbuws.com
+[GIN] 2022/09/13 - 18:52:29 | 200 |    30.77773ms |             ::1 | POST     "/api/v1/auth/signup"
+[USER] 2022/09/13 18:52:29 Created user jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com
+[GIN] 2022/09/13 - 18:52:29 | 200 |    27.39675ms |             ::1 | POST     "/api/v1/auth/signup"
+[GIN] 2022/09/13 - 18:52:29 | 200 |   22.032911ms |             ::1 | POST     "/api/v1/auth/login"
+[GIN] 2022/09/13 - 18:52:29 | 200 |   21.488696ms |             ::1 | POST     "/api/v1/auth/login"
+[USER] 2022/09/13 18:52:29 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[VENDOR] 2022/09/13 18:52:29 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com created vendor: Apache Software Foundation
+[GIN] 2022/09/13 - 18:52:29 | 200 |    5.565247ms |             ::1 | POST     "/api/v1/vendors"
+[USER] 2022/09/13 18:52:29 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[VENDOR] 2022/09/13 18:52:29 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com created vendor: Free RDP
+[GIN] 2022/09/13 - 18:52:29 | 200 |   10.236792ms |             ::1 | POST     "/api/v1/vendors"
+[USER] 2022/09/13 18:52:29 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[VENDOR] 2022/09/13 18:52:29 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com created vendor: Microsoft
+[GIN] 2022/09/13 - 18:52:29 | 200 |    8.181911ms |             ::1 | POST     "/api/v1/vendors"
+[USER] 2022/09/13 18:52:29 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[VENDOR] 2022/09/13 18:52:29 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com created vendor: Fedora Project
+[GIN] 2022/09/13 - 18:52:29 | 200 |   13.657687ms |             ::1 | POST     "/api/v1/vendors"
+[USER] 2022/09/13 18:52:29 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[COMPONENT] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com created componetent recod Log4j: 2.11.2
+[GIN] 2022/09/13 - 18:52:30 | 200 |   13.903662ms |             ::1 | POST     "/api/v1/components"
+[USER] 2022/09/13 18:52:30 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[COMPONENT] 2022/09/13 18:52:30 User fdekxutwiceovoadymol@myfwksibpekywpivbuws.com subscribed to Log4j:2.11.2
+[GIN] 2022/09/13 - 18:52:30 | 200 |   10.571508ms |             ::1 | POST     "/api/v1/components/1/subscribe?user=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com"
+[USER] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[COMPONENT] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com created componetent recod FreeRDP: 2.1.2
+[GIN] 2022/09/13 - 18:52:30 | 200 |   27.182959ms |             ::1 | POST     "/api/v1/components"
+[USER] 2022/09/13 18:52:30 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[COMPONENT] 2022/09/13 18:52:30 User fdekxutwiceovoadymol@myfwksibpekywpivbuws.com subscribed to FreeRDP:2.1.2
+[GIN] 2022/09/13 - 18:52:30 | 200 |   20.506828ms |             ::1 | POST     "/api/v1/components/2/subscribe?user=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com"
+[USER] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[COMPONENT] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com created componetent recod Windows: 11
+[GIN] 2022/09/13 - 18:52:30 | 200 |   19.317374ms |             ::1 | POST     "/api/v1/components"
+[USER] 2022/09/13 18:52:30 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[COMPONENT] 2022/09/13 18:52:30 User fdekxutwiceovoadymol@myfwksibpekywpivbuws.com subscribed to Windows:11
+[GIN] 2022/09/13 - 18:52:30 | 200 |    20.37859ms |             ::1 | POST     "/api/v1/components/3/subscribe?user=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com"
+[USER] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[COMPONENT] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com created componetent recod Fedora: 35
+[GIN] 2022/09/13 - 18:52:30 | 200 |   20.099748ms |             ::1 | POST     "/api/v1/components"
+[USER] 2022/09/13 18:52:30 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[COMPONENT] 2022/09/13 18:52:30 User fdekxutwiceovoadymol@myfwksibpekywpivbuws.com subscribed to Fedora:35
+[GIN] 2022/09/13 - 18:52:30 | 200 |   17.281756ms |             ::1 | POST     "/api/v1/components/4/subscribe?user=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com"
+[USER] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[COMPONENT] 2022/09/13 18:52:30 User jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com subscribed to Fedora:35
+[GIN] 2022/09/13 - 18:52:30 | 200 |   19.789336ms |             ::1 | POST     "/api/v1/components/4/subscribe?user=jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com"
+[USER] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[COMPONENT] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com created componetent recod Fedora: 36
+[GIN] 2022/09/13 - 18:52:30 | 200 |   19.311549ms |             ::1 | POST     "/api/v1/components"
+[USER] 2022/09/13 18:52:30 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[COMPONENT] 2022/09/13 18:52:30 User jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com subscribed to Fedora:36
+[GIN] 2022/09/13 - 18:52:30 | 200 |   26.992091ms |             ::1 | POST     "/api/v1/components/5/subscribe?user=jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com"
+[USER] 2022/09/13 18:52:30 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[ANALYSER] 2022/09/13 18:52:30 Checking Vulnerabilities form the last 0 to -300 days:
+[ANALYSER] 2022/09/13 18:52:30 Vulnerability CVE-2021-41159 assigned to FreeRDP:2.1.2
+[ANALYSER] 2022/09/13 18:52:30 Vulnerability CVE-2021-41159 assigned to Fedora:35
+[ANALYSER] 2022/09/13 18:52:31 Vulnerability CVE-2021-41160 assigned to FreeRDP:2.1.2
+[ANALYSER] 2022/09/13 18:52:31 Vulnerability CVE-2021-41160 assigned to Fedora:35
+[ANALYSER] 2022/09/13 18:52:33 Vulnerability CVE-2021-44228 assigned to Log4j:2.11.2
+[ANALYSER] 2022/09/13 18:52:33 Vulnerability CVE-2021-44228 assigned to Fedora:35
+[ANALYSER] 2022/09/13 18:52:33 Vulnerability CVE-2022-21907 assigned to Windows:11
+[ANALYSER] 2022/09/13 18:52:33 Vulnerability CVE-2022-21908 assigned to Windows:11
+[ANALYSER] 2022/09/13 18:52:33 Checked 5 vulnerabilities. Found 8 vulnerable componentes.
+[GIN] 2022/09/13 - 18:52:33 | 200 |  3.591013647s |             ::1 | POST     "/api/v1/config/match?from=0&to=-300"
+[USER] 2022/09/13 18:52:33 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |     680.703µs |             ::1 | GET      "/api/v1/components/1/vulnerabilities"
+[USER] 2022/09/13 18:52:33 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |     611.218µs |             ::1 | GET      "/api/v1/components/2/vulnerabilities"
+[USER] 2022/09/13 18:52:33 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |     714.187µs |             ::1 | GET      "/api/v1/components/3/vulnerabilities"
+[USER] 2022/09/13 18:52:33 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |     696.679µs |             ::1 | GET      "/api/v1/components/4/vulnerabilities"
+[USER] 2022/09/13 18:52:33 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |     633.148µs |             ::1 | GET      "/api/v1/components/5/vulnerabilities"
+[USER] 2022/09/13 18:52:33 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |    2.497313ms |             ::1 | GET      "/api/v1/notifications?for=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com"
+[USER] 2022/09/13 18:52:33 jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |    1.947342ms |             ::1 | GET      "/api/v1/notifications?for=jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com"
+[USER] 2022/09/13 18:52:33 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |    1.325463ms |             ::1 | GET      "/api/v1/notifications?cve_id=CVE-2021-41159"
+[USER] 2022/09/13 18:52:33 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |    1.317681ms |             ::1 | GET      "/api/v1/notifications?cve_id=CVE-2021-41160"
+[USER] 2022/09/13 18:52:33 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[GIN] 2022/09/13 - 18:52:33 | 200 |    1.401629ms |             ::1 | GET      "/api/v1/notifications?cve_id=CVE-2022-21907"
+[USER] 2022/09/13 18:52:33 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com:
+[VENDOR] 2022/09/13 18:52:33 fdekxutwiceovoadymol@myfwksibpekywpivbuws.com created vendor: fail=0
+[GIN] 2022/09/13 - 18:52:33 | 200 |     7.80076ms |             ::1 | POST     "/api/v1/vendors"
 [93mAuthorisation
 [37m POST: http://localhost:8080/api/v1/auth/signup
 [32msign up user 1
@@ -118,25 +120,25 @@ set up test DB
 [93mComponents
 [37m POST: http://localhost:8080/api/v1/components
 [32mCreate Component 1
-[37m POST: http://localhost:8080/api/v1/components/1/subscribe?user=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com
+[37m POST: http://localhost:8080/api/v1/components/1/subscribe?user=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com
 [32msubscribe User 1 to component 1 (log4j)
 [37m POST: http://localhost:8080/api/v1/components
 [32mCreate Component 2
-[37m POST: http://localhost:8080/api/v1/components/2/subscribe?user=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com
+[37m POST: http://localhost:8080/api/v1/components/2/subscribe?user=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com
 [32msubscribe User 1 to component 2 (FreeRDP)
 [37m POST: http://localhost:8080/api/v1/components
 [32mCreate Component 3
-[37m POST: http://localhost:8080/api/v1/components/3/subscribe?user=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com
+[37m POST: http://localhost:8080/api/v1/components/3/subscribe?user=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com
 [32msubscribe User 1 to component 3 (Win 11)
 [37m POST: http://localhost:8080/api/v1/components
 [32mCreate Component 4
-[37m POST: http://localhost:8080/api/v1/components/4/subscribe?user=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com
+[37m POST: http://localhost:8080/api/v1/components/4/subscribe?user=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com
 [32msubscribe User 1 to component 4 (fedora 34)
-[37m POST: http://localhost:8080/api/v1/components/4/subscribe?user=mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com
+[37m POST: http://localhost:8080/api/v1/components/4/subscribe?user=jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com
 [32msubscribe User 2 to component 4 (fedora 34)
 [37m POST: http://localhost:8080/api/v1/components
 [32mCreate Component 5
-[37m POST: http://localhost:8080/api/v1/components/5/subscribe?user=mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com
+[37m POST: http://localhost:8080/api/v1/components/5/subscribe?user=jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com
 [32msubscribe User 2 to component 5 (fedora 36)
 [37m POST: http://localhost:8080/api/v1/config/match?from=0&to=-300
 [32mrun cpe match
@@ -146,43 +148,50 @@ set up test DB
 [32mNot contains CVE-2021-41159
 [32mNot contains CVE-2021-41160
 [32mNot contains CVE-2022-21907
+[32mNot contains CVE-2022-21908
 [37m GET: http://localhost:8080/api/v1/components/2/vulnerabilities
 [32mGet vulnerabilities for component 2: FreeRDP 2.1.2
 [32mNot contains CVE-2021-44228
 [32mContains CVE-2021-41159
 [32mContains CVE-2021-41160
-[32mNot ontains CVE-2022-21907
+[32mNot contains CVE-2022-21907
+[32mNot contains CVE-2022-21908
 [37m GET: http://localhost:8080/api/v1/components/3/vulnerabilities
 [32mGet vulnerabilities for component 3: Windows 11
 [32mNot contains CVE-2021-44228
 [32mNot contains CVE-2021-41159
 [32mNot contains CVE-2021-41160
 [32mContains CVE-2022-21907
+[32mContains CVE-2022-21908
 [37m GET: http://localhost:8080/api/v1/components/4/vulnerabilities
 [32mGet vulnerabilities for component 4: Fedora 34
 [32mContains CVE-2021-44228
 [32mContains CVE-2021-41159
 [32mContains CVE-2021-41160
 [32mNot Contains CVE-2022-21907
+[32mNot Contains CVE-2022-21908
 [37m GET: http://localhost:8080/api/v1/components/5/vulnerabilities
 [32mGet vulnerabilities for component 5: Fedora 36
 [32mNot Contains CVE-2021-44228
 [32mNot Contains CVE-2021-41159
 [32mNot contains CVE-2021-41160
 [32mNot contains CVE-2022-21907
+[32mNot contains CVE-2022-21908
 [93mNotifications
-[37m GET: http://localhost:8080/api/v1/notifications?for=avwxpapbvrxnwfvyevya@itluludnyohjwmdjjfuh.com
+[37m GET: http://localhost:8080/api/v1/notifications?for=fdekxutwiceovoadymol@myfwksibpekywpivbuws.com
 [32mGet Notifications for user1
 [32mContains CVE-2021-44228
 [32mContains CVE-2021-41159
 [32mContains CVE-2021-41160
 [32mContains CVE-2022-21907
-[37m GET: http://localhost:8080/api/v1/notifications?for=mvtkonzxkrwxekgvrfvq@hionqgufvfjhiwonrepj.com
+[32mContains CVE-2022-21908
+[37m GET: http://localhost:8080/api/v1/notifications?for=jkzzyrwnsktfolsdcdhg@jabqzeseccigewvezvfi.com
 [32mGet Notifications for user2
 [32mContains CVE-2021-44228
 [32mContains CVE-2021-41159
 [32mContains CVE-2021-41160
 [32mNot Contains CVE-2022-21907
+[32mNot Contains CVE-2022-21908
 [37m GET: http://localhost:8080/api/v1/notifications?cve_id=CVE-2021-41159
 [32mGet Notification for CVE-2021-41159
 [93mFreeRDP
@@ -198,4 +207,4 @@ set up test DB
 [93msent result
 drop test DB
 PASS
-ok  	vuln-info-backend/paper/PoC	14.750s
+ok  	vuln-info-backend/paper/PoC	13.666s
